@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lunavelle | Cycle Analytics</title>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    :root {
+        --pink: #e65b91;
+        --purple: #a76acb;
+        --dark: #58395e;
+        --muted: #806b85;
+        --border: #f4e5f2;
+    }
+
+    body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: linear-gradient(135deg, #fff0f6, #f3eaff, #ffeaf3);
+        background-attachment: fixed;
+        color: var(--dark);
+        min-height: 100vh;
+        padding: 25px 18px 40px;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 1250px;
+        margin: auto;
+    }
+
+    .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 18px;
+        flex-wrap: wrap;
+        padding: 25px;
+        background: #ffffffed;
+        border: 1px solid white;
+        border-radius: 24px;
+        box-shadow: 0 12px 35px #88517b16;
+    }
+
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .analytics-logo {
+    width: 150px;
+    height: 60px;
+    object-fit: contain;
+    flex-shrink: 0;
+    display: block;
+}
+
+    h1 {
+        font-size: clamp(24px, 4vw, 34px);
+        margin-bottom: 6px;
+    }
+
+    .muted {
+        color: var(--muted);
+        line-height: 1.7;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 12px 18px;
+        border: none;
+        border-radius: 13px;
+        background: linear-gradient(100deg, var(--pink), var(--purple));
+        color: white;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        transition: .2s;
+    }
+
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 7px 20px #b65da544;
+    }
+
+    .section-title {
+        margin: 32px 2px 17px;
+    }
+
+    .section-title h2 {
+        font-size: 24px;
+    }
+
+    .section-title p {
+        margin-top: 6px;
+        color: var(--muted);
+        line-height: 1.6;
+    }
+
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 18px;
+    }
+
+    .stat-card {
+        background: #ffffffed;
+        border: 1px solid white;
+        border-radius: 22px;
+        padding: 23px;
+        box-shadow: 0 10px 30px #88517b12;
+        transition: transform .2s;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .stat-icon {
+        font-size: 29px;
+        margin-bottom: 14px;
+    }
+
+    .stat-card h3 {
+        color: var(--muted);
+        font-size: 14px;
+        margin-bottom: 10px;
+        font-weight: 600;
+    }
+
+    .stat-value {
+        font-size: 27px;
+        font-weight: 800;
+        color: #a04e91;
+        overflow-wrap: anywhere;
+    }
+
+    .stat-note {
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 8px;
+        line-height: 1.6;
+    }
+
+    .chart-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
+    }
+
+    .panel {
+        min-width: 0;
+        background: #ffffffed;
+        border: 1px solid white;
+        border-radius: 24px;
+        padding: 25px;
+        box-shadow: 0 12px 35px #88517b12;
+    }
+
+    .panel h3 {
+        color: #a04e91;
+        font-size: 20px;
+        margin-bottom: 7px;
+    }
+
+    .panel-description {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.7;
+        margin-bottom: 20px;
+    }
+
+    .chart-area {
+        position: relative;
+        width: 100%;
+        height: 290px;
+    }
+
+    .history-panel {
+        margin-top: 22px;
+    }
+
+    .table-wrap {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 520px;
+    }
+
+    th, td {
+        padding: 15px 13px;
+        border-bottom: 1px solid var(--border);
+        text-align: left;
+        font-size: 14px;
+    }
+
+    th {
+        background: #fff2f8;
+        color: #944e8a;
+        font-weight: 700;
+    }
+
+    tbody tr:hover {
+        background: #fff9fc;
+    }
+
+    .empty-state {
+        padding: 25px 12px;
+        color: var(--muted);
+        text-align: center;
+        line-height: 1.8;
+    }
+
+    .insight-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 18px;
+        margin-top: 20px;
+    }
+
+    .insight-card {
+        background: linear-gradient(135deg, #fff, #fff0f7);
+        border: 1px solid white;
+        border-radius: 21px;
+        padding: 23px;
+    }
+
+    .insight-card .emoji {
+        font-size: 28px;
+        margin-bottom: 12px;
+    }
+
+    .insight-card h3 {
+        font-size: 17px;
+        margin-bottom: 9px;
+        color: #a04e91;
+    }
+
+    .insight-card p {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+    .notice {
+        margin-top: 25px;
+        padding: 18px 20px;
+        border-radius: 17px;
+        background: #ffffffb8;
+        border: 1px solid white;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.8;
+    }
+
+    .footer {
+        padding-top: 25px;
+        text-align: center;
+        font-size: 13px;
+        color: var(--muted);
+    }
+/* Lunavelle Smart Insights */
+
+.ai-section {
+    margin-top: 30px;
+    padding: 30px;
+    border-radius: 26px;
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #fff5fa,
+        #f8f2ff
+    );
+    border: 1px solid #f2e2f0;
+    box-shadow: 0 12px 35px #88517b12;
+}
+
+.ai-heading {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    margin-bottom: 25px;
+}
+
+.ai-heading-icon {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    border-radius: 18px;
+    background: linear-gradient(
+        135deg,
+        #fce0ee,
+        #e9ddff
+    );
+    color: #a04e91;
+    font-size: 30px;
+}
+
+.ai-badge {
+    display: inline-block;
+    margin-bottom: 8px;
+    padding: 6px 11px;
+    border-radius: 30px;
+    background: #f8e7f4;
+    color: #a04e91;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.ai-heading h2 {
+    font-size: 25px;
+    color: var(--dark);
+    margin-bottom: 7px;
+}
+
+.ai-heading p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.ai-insight-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.ai-insight-card {
+    padding: 24px;
+    border-radius: 21px;
+    background: #ffffff;
+    border: 1px solid #f1e5f0;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.ai-insight-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px #88517b12;
+}
+
+.ai-card-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.ai-card-icon {
+    width: 43px;
+    height: 43px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: #fff0f7;
+    font-size: 22px;
+}
+
+.ai-card-label {
+    color: #a04e91;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: .8px;
+}
+
+.ai-insight-card h3 {
+    color: var(--dark);
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.ai-insight-card p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+.ai-footer {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid #f0e3ef;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.ai-footer span {
+    color: #a04e91;
+    font-size: 18px;
+}
+
+/* End Lunavelle Smart Insights */
+    @media (max-width: 900px) {
+        .stats {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .insight-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 650px) {
+        body {
+            padding: 14px 10px 25px;
+        }
+
+        .topbar {
+            padding: 19px;
+        }
+    /* Mobile Logo */
+
+    .analytics-logo {
+        width: 125px;
+        height: 50px;
+    }
+
+    /* Mobile Smart Insights */
+
+    .ai-section {
+        padding: 20px;
+    }
+
+    .ai-heading {
+        align-items: flex-start;
+        gap: 13px;
+    }
+
+    .ai-heading-icon {
+        width: 45px;
+        height: 45px;
+        border-radius: 14px;
+        font-size: 24px;
+    }
+
+    .ai-heading h2 {
+        font-size: 21px;
+    }
+
+    .ai-insight-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ai-insight-card {
+        padding: 20px;
+    }
+        .stats,
+        .chart-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .panel,
+        .stat-card {
+            padding: 20px;
+        }
+
+        .chart-area {
+            height: 250px;
+        }
+    }
+</style>
+
+
+</head>
+
+<body>
+<main class="container">
+
+<header class="topbar">
+    <div class="brand">
+        <img
+    class="analytics-logo"
+    src="{{ url_for('static', filename='image/logo.png') }}"
+    alt="Lunavelle Logo"
+>
+        <div>
+            <h1>Cycle Analytics</h1>
+            <p class="muted">Understand your patterns, one step at a time. 🌷</p>
+        </div>
+    </div>
+
+    <a class="btn" href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+</header>
+
+<section class="section-title">
+    <h2>✨ Your Overview</h2>
+    <p>Review the information available from your saved records.</p>
+</section>
+
+<section class="stats">
+    <article class="stat-card">
+        <div class="stat-icon">📅</div>
+        <h3>Recorded Periods</h3>
+        <div class="stat-value">{{ total_cycles|default(0) }}</div>
+        <p class="stat-note">Total period records available to this page.</p>
+    </article>
+
+    <article class="stat-card">
+        <div class="stat-icon">💗</div>
+        <h3>Symptom Records</h3>
+        <div class="stat-value">{{ total_symptoms|default(0) }}</div>
+        <p class="stat-note">Total saved symptom entries.</p>
+    </article>
+
+    <article class="stat-card">
+        <div class="stat-icon">🌸</div>
+        <h3>Average Cycle Length</h3>
+        <div class="stat-value">
+            {% if average_cycle_length is defined and average_cycle_length is not none %}
+                {{ average_cycle_length }} days
+            {% else %}
+                —
+            {% endif %}
+        </div>
+        <p class="stat-note">Average interval between recorded period start dates.</p>
+    </article>
+
+    <article class="stat-card">
+        <div class="stat-icon">🌿</div>
+        <h3>Average Symptom Severity</h3>
+        <div class="stat-value">
+            {% if average_symptom_severity is defined and average_symptom_severity is not none %}
+                {{ average_symptom_severity }}/10
+            {% else %}
+                —
+            {% endif %}
+        </div>
+        <p class="stat-note">Average of valid recorded symptom scores.</p>
+    </article>
+</section>
+
+<section class="section-title">
+    <h2>📈 Visual Insights</h2>
+    <p>Explore the cycle and symptom records supplied by your Flask route.</p>
+</section>
+
+<section class="chart-grid">
+    <article class="panel">
+        <h3>🗓️ Cycle Length History</h3>
+        <p class="panel-description">Compare recorded cycle intervals over time.</p>
+        <div class="chart-area">
+            <canvas id="cycleChart" aria-label="Cycle length history chart"></canvas>
+        </div>
+        <p class="panel-description" id="cycleEmpty" hidden>
+            No cycle history is available yet. Record period dates to build your chart.
+        </p>
+    </article>
+
+    <article class="panel">
+        <h3>💗 Symptom Severity</h3>
+        <p class="panel-description">Review symptom scores from 0 to 10.</p>
+        <div class="chart-area">
+            <canvas id="symptomChart" aria-label="Symptom severity chart"></canvas>
+        </div>
+        <p class="panel-description" id="symptomEmpty" hidden>
+            No symptom summary is available yet. Add symptom records to build your chart.
+        </p>
+    </article>
+</section>
+
+<section class="panel history-panel">
+
+    <!-- Lunavelle Smart Insights -->
+
+<section class="ai-section">
+
+    <div class="ai-heading">
+        <div class="ai-heading-icon">✦</div>
+
+        <div>
+            <span class="ai-badge">SMART HEALTH SUMMARY</span>
+            <h2>Lunavelle Smart Insights</h2>
+            <p>
+                Understand your personal cycle and symptom patterns
+                through your recorded data.
+            </p>
+        </div>
+    </div>
+
+    <div class="ai-insight-grid">
+
+        <article class="ai-insight-card">
+
+            <div class="ai-card-top">
+                <span class="ai-card-icon">🌸</span>
+                <span class="ai-card-label">CYCLE PATTERN</span>
+            </div>
+
+            <h3>Your Cycle Overview</h3>
+
+            <p id="aiCycleInsight">
+                Your cycle summary will appear here
+                when cycle records are available.
+            </p>
+
+        </article>
+
+
+        <article class="ai-insight-card">
+
+            <div class="ai-card-top">
+                <span class="ai-card-icon">💗</span>
+                <span class="ai-card-label">SYMPTOM SUMMARY</span>
+            </div>
+
+            <h3>Your Symptom Overview</h3>
+
+            <p id="aiSymptomInsight">
+                Your symptom summary will appear here
+                when symptom records are available.
+            </p>
+
+        </article>
+
+    </div>
+
+    <div class="ai-footer">
+        <span>✦</span>
+        Summary based on your saved records.
+        This is not a medical diagnosis.
+    </div>
+
+</section>
+
+<!-- End Lunavelle Smart Insights -->
+    <h3>📋 Recent Cycle History</h3>
+    <p class="panel-description">This table displays cycle records passed from your Flask route.</p>
+
+    {% if cycle_history is defined and cycle_history %}
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Period Start</th>
+                        <th>Period End</th>
+                        <th>Cycle Length</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cycle in cycle_history %}
+                    <tr>
+                        <td>{{ cycle.start_date|default('—') }}</td>
+                        <td>{{ cycle.end_date|default('—') }}</td>
+                        <td>
+                            {% if cycle.cycle_length is defined and cycle.cycle_length is not none %}
+                                {{ cycle.cycle_length }} days
+                            {% else %}
+                                —
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="empty-state">
+            🌷 No cycle history was supplied to the page yet.<br>
+            Once your backend passes saved records, they will appear here.
+        </div>
+    {% endif %}
+</section>
+
+<section class="section-title">
+    <h2>🌼 Wellness Notes</h2>
+    <p>General suggestions for reflecting on your health and wellbeing.</p>
+</section>
+
+<section class="insight-grid">
+    <article class="insight-card">
+        <div class="emoji">📝</div>
+        <h3>Keep Tracking</h3>
+        <p>Recording period dates consistently can help you notice changes in your own cycle pattern.</p>
+    </article>
+
+    <article class="insight-card">
+        <div class="emoji">💧</div>
+        <h3>Care for Yourself</h3>
+        <p>Drink fluids regularly, rest when needed, and choose comfortable movement if it feels right for you.</p>
+    </article>
+
+    <article class="insight-card">
+        <div class="emoji">🩺</div>
+        <h3>Notice Changes</h3>
+        <p>Seek medical advice for severe pain, unusually heavy bleeding, or other symptoms that concern you.</p>
+    </article>
+</section>
+
+<aside class="notice">
+    💗 <strong>Health note:</strong> This page is for informational tracking only.
+    Cycle averages and predictions are not guarantees, medical diagnoses, or contraception advice.
+</aside>
+
+<footer class="footer">
+    Made with 🌷 for your wellbeing · Lunavelle
+</footer>
+
+
+</main>
+
+<script>
+   const cycleLengths = {{ cycle_lengths|default([], true)|tojson }};
+
+const symptomLabels = {{ symptom_labels|default([], true)|tojson }};
+
+const symptomScores = {{ symptom_scores|default([], true)|tojson }};
+// Lunavelle Smart Insights
+
+const aiCycleInsight = document.getElementById("aiCycleInsight");
+const aiSymptomInsight = document.getElementById("aiSymptomInsight");
+
+// Cycle summary
+
+const validCycleLengths = cycleLengths
+    .map(Number)
+    .filter(value => Number.isFinite(value) && value > 0);
+
+if (validCycleLengths.length > 0) {
+
+    const totalCycleDays = validCycleLengths.reduce(
+        (total, value) => total + value,
+        0
+    );
+
+    const averageCycleDays = Math.round(
+        totalCycleDays / validCycleLengths.length
+    );
+
+    const latestCycle = validCycleLengths[
+        validCycleLengths.length - 1
+    ];
+
+    aiCycleInsight.textContent =
+        `You have ${validCycleLengths.length} recorded cycle interval(s). ` +
+        `Your average recorded cycle length is ${averageCycleDays} days. ` +
+        `Your latest recorded interval is ${latestCycle} days. ` +
+        `Keep tracking to understand your personal pattern over time.`;
+
+} else {
+
+    aiCycleInsight.textContent =
+        "No cycle intervals are available yet. " +
+        "Start recording your period dates to build your cycle summary.";
+
+}
+
+
+// Symptom summary
+
+const validSymptomData = symptomScores
+    .map((score, index) => ({
+        label: symptomLabels[index],
+        score: Number(score)
+    }))
+    .filter(item =>
+        item.label &&
+        Number.isFinite(item.score) &&
+        item.score >= 0 &&
+        item.score <= 10
+    );
+
+if (validSymptomData.length > 0) {
+
+    const highestSymptom = validSymptomData.reduce(
+        (highest, current) =>
+            current.score > highest.score ? current : highest
+    );
+
+    aiSymptomInsight.textContent =
+        `Your highest recorded symptom score in this summary is ` +
+        `${highestSymptom.score}/10 for ${highestSymptom.label}. ` +
+        `Continue logging your symptoms to observe how your recorded ` +
+        `scores change over time.`;
+
+} else {
+
+    aiSymptomInsight.textContent =
+        "No symptom scores are available yet. " +
+        "Record your symptoms and severity to build your personal summary.";
+
+}
+
+// End Lunavelle Smart Insights
+
+const cycleCanvas = document.getElementById("cycleChart");
+const symptomCanvas = document.getElementById("symptomChart");
+
+    if (typeof Chart !== "undefined" && cycleLengths.length > 0) {
+        new Chart(cycleCanvas, {
+            type: "line",
+            data: {
+                labels: cycleLengths.map((_, index) => `Cycle ${index + 1}`),
+                datasets: [{
+                    label: "Cycle length (days)",
+                    data: cycleLengths,
+                    borderColor: "#d65398",
+                    backgroundColor: "rgba(230, 91, 145, 0.16)",
+                    fill: true,
+                    tension: 0.35,
+                    pointRadius: 5,
+                    pointHoverRadius: 7
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        title: {
+                            display: true,
+                            text: "Days"
+                        }
+                    }
+                }
+            }
+        });
+    } else {
+        cycleCanvas.hidden = true;
+        document.getElementById("cycleEmpty").hidden = false;
+    }
+
+    if (
+        typeof Chart !== "undefined" &&
+        symptomLabels.length > 0 &&
+        symptomScores.length === symptomLabels.length
+    ) {
+        new Chart(symptomCanvas, {
+            type: "bar",
+            data: {
+                labels: symptomLabels,
+                datasets: [{
+                    label: "Severity (0–10)",
+                    data: symptomScores,
+                    backgroundColor: [
+                        "#e65b91",
+                        "#b16acb",
+                        "#f39cbd",
+                        "#9d8be7",
+                        "#ed83a8",
+                        "#c58bd9"
+                    ],
+                    borderRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 10,
+                        ticks: {
+                            stepSize: 2
+                        }
+                    }
+                }
+            }
+        });
+    } else {
+        symptomCanvas.hidden = true;
+        document.getElementById("symptomEmpty").hidden = false;
+    }
+
+</script>
+
+</body>
+</html>

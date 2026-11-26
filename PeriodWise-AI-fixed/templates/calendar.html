@@ -1,0 +1,1244 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Period Calendar | PeriodWise AI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --pink: #e65b91;
+            --purple: #a76acb;
+            --dark: #58395e;
+            --muted: #806b85;
+            --light-pink: #fff0f6;
+            --light-purple: #f3eaff;
+            --white: #ffffff;
+            --border: #f1ddec;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: var(--dark);
+            background: linear-gradient(
+                135deg,
+                #fff0f6,
+                #f3eaff,
+                #ffeaf3
+            );
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input,
+        select {
+            font: inherit;
+        }
+
+        .container {
+            width: min(1150px, 94%);
+            margin: auto;
+            padding: 22px 0 45px;
+        }
+
+        /* Navigation */
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 25px;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 23px;
+            font-weight: 800;
+        }
+
+        .lunavelle-logo {
+    width: 150px;
+    height: 70px;
+    object-fit: contain;
+    display: block;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+        .nav-button,
+        .primary-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: none;
+            border-radius: 13px;
+            padding: 12px 18px;
+            color: white;
+            background: linear-gradient(
+                100deg,
+                var(--pink),
+                var(--purple)
+            );
+            font-size: 14px;
+            font-weight: 750;
+            cursor: pointer;
+            transition: 0.25s;
+            box-shadow: 0 7px 18px #a76acb25;
+        }
+
+        .nav-button:hover,
+        .primary-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 23px #a76acb40;
+        }
+
+        .secondary-button {
+            color: #a04e91;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 11px 15px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .secondary-button:hover {
+            background: var(--light-pink);
+        }
+
+        /* Page heading */
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 28px;
+            border-radius: 25px;
+            border: 1px solid white;
+            background: #ffffffdf;
+            box-shadow: 0 12px 35px #88517b15;
+            margin-bottom: 24px;
+        }
+
+        .page-header h1 {
+            font-size: clamp(27px, 4vw, 38px);
+            margin-bottom: 8px;
+        }
+
+        .page-header p {
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .gradient-text {
+            color: #a04e91;
+        }
+
+        /* Main grid */
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.6fr) minmax(270px, 0.8fr);
+            gap: 23px;
+            align-items: start;
+        }
+
+        .panel {
+            padding: 25px;
+            border-radius: 25px;
+            background: #ffffffed;
+            border: 1px solid white;
+            box-shadow: 0 12px 35px #88517b13;
+        }
+
+        .panel-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+
+        .panel-heading h2 {
+            font-size: 22px;
+        }
+
+        /* Calendar header */
+
+        .month-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 22px;
+        }
+
+        .month-title {
+            font-size: 23px;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .arrow-button {
+            width: 42px;
+            height: 42px;
+            border: 1px solid var(--border);
+            border-radius: 13px;
+            background: #fff5fa;
+            color: #a04e91;
+            font-size: 22px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .arrow-button:hover {
+            background: #ffe1ef;
+            transform: scale(1.04);
+        }
+
+        /* Calendar grid */
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: 7px;
+        }
+
+        .weekday {
+            padding: 12px 2px;
+            text-align: center;
+            color: #a04e91;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .day {
+            position: relative;
+            min-height: 68px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+            border: 1px solid transparent;
+            border-radius: 14px;
+            background: #fff9fc;
+            color: var(--dark);
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .day:hover {
+            border-color: #e9b6d6;
+            background: #fff0f7;
+            transform: translateY(-2px);
+        }
+
+        .day.empty {
+            background: transparent;
+            border: none;
+            cursor: default;
+            pointer-events: none;
+        }
+
+        .day.today {
+            border: 2px solid var(--purple);
+            font-weight: 850;
+        }
+
+        .day.selected {
+            outline: 3px solid #dcb4f0;
+            outline-offset: -3px;
+        }
+
+        .day.period {
+            background: #ffe0ed;
+            color: #ad356f;
+            font-weight: 800;
+        }
+
+        .day.predicted {
+            background: #f0e4ff;
+            color: #7446a0;
+        }
+
+        .day-number {
+            font-size: 15px;
+        }
+
+        .day-marker {
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        .day.period .day-marker {
+            color: #c23d7a;
+        }
+
+        .day.predicted .day-marker {
+            color: #8051ad;
+        }
+
+        /* Calendar legend */
+
+        .legend {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-top: 22px;
+            padding-top: 18px;
+            border-top: 1px solid #f2e5ef;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 4px;
+        }
+
+        .dot-today {
+            background: white;
+            border: 2px solid var(--purple);
+        }
+
+        .dot-period {
+            background: #ffc8df;
+        }
+
+        .dot-predicted {
+            background: #e2ceff;
+        }
+
+        /* Right panel */
+
+        .side-panel {
+            display: grid;
+            gap: 22px;
+        }
+
+        .selected-date {
+            padding: 20px;
+            border-radius: 20px;
+            background: linear-gradient(
+                135deg,
+                #fff0f6,
+                #f3eaff
+            );
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .selected-date .emoji {
+            font-size: 34px;
+            margin-bottom: 8px;
+        }
+
+        .selected-date h3 {
+            font-size: 18px;
+            margin-bottom: 6px;
+        }
+
+        .selected-date p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 13px;
+            font-weight: 750;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 13px;
+            border: 1px solid #ead8e8;
+            border-radius: 12px;
+            background: #fffafd;
+            color: var(--dark);
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: var(--purple);
+            box-shadow: 0 0 0 3px #a76acb18;
+        }
+
+        .form-help {
+            display: block;
+            color: var(--muted);
+            font-size: 11px;
+            line-height: 1.6;
+            margin-top: 7px;
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        .notice {
+            padding: 14px;
+            border-radius: 14px;
+            background: #fff7e8;
+            border: 1px solid #f6e3b5;
+            color: #80613c;
+            font-size: 12px;
+            line-height: 1.8;
+            margin-top: 17px;
+        }
+
+        .notice strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Quick information */
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 13px;
+            padding: 15px 0;
+            border-bottom: 1px solid #f3e6f0;
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .info-icon {
+            width: 43px;
+            height: 43px;
+            flex-shrink: 0;
+            display: grid;
+            place-items: center;
+            border-radius: 14px;
+            background: #f7e8ff;
+            font-size: 21px;
+        }
+
+        .info-item h3 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .info-item p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+
+        .footer {
+            padding: 30px 10px 5px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.9;
+        }
+
+        /* Flash messages */
+
+        .flash-message {
+            padding: 13px 16px;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            background: #fff;
+            border: 1px solid var(--border);
+        }
+
+        .flash-message.success {
+            color: #237548;
+            background: #edfff3;
+        }
+
+        .flash-message.danger,
+        .flash-message.error {
+            color: #a52d50;
+            background: #fff0f3;
+        }
+
+        .flash-message.warning {
+            color: #805d22;
+            background: #fff9e9;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 850px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .side-panel {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .calendar-panel {
+                min-width: 0;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .container {
+                width: 94%;
+                padding-top: 14px;
+            }
+
+            .page-header,
+            .panel {
+                padding: 18px;
+                border-radius: 20px;
+            }
+
+            .side-panel {
+                grid-template-columns: 1fr;
+            }
+
+            .day {
+                min-height: 48px;
+                border-radius: 10px;
+            }
+
+            .day-number {
+                font-size: 13px;
+            }
+
+            .day-marker {
+                font-size: 8px;
+            }
+
+            .weekday {
+                font-size: 10px;
+                padding: 8px 0;
+            }
+
+            .calendar-grid {
+                gap: 4px;
+            }
+
+            .month-title {
+                font-size: 19px;
+            }
+
+            .legend {
+                gap: 10px;
+            }
+
+            .brand {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="container">
+
+        <!-- Navigation -->
+<nav class="navbar">
+
+    <a class="brand" href="{{ url_for('home') }}">
+        <img
+            class="lunavelle-logo"
+            src="{{ url_for('static', filename='image/logo.png') }}"
+            alt="Lunavelle Logo"
+        >
+    </a>
+
+    <button
+        type="button"
+        class="nav-button"
+        id="backButton">
+        ← Back to Dashboard
+    </button>
+
+</nav>
+
+        <!-- Flash messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Heading -->
+        <header class="page-header">
+
+            <div>
+                <h1>
+                    🗓️ Your
+                    <span class="gradient-text">Period Calendar</span>
+                </h1>
+
+                <p>
+                    Keep track of your cycle, review saved dates
+                    and understand your personal patterns.
+                </p>
+            </div>
+
+            <button class="primary-button" id="todayButton" type="button">
+                ✨ Go to Today
+            </button>
+
+        </header>
+
+        <div class="main-grid">
+
+            <!-- Calendar -->
+            <section class="panel calendar-panel">
+
+                <div class="panel-heading">
+                    <h2>🌸 Monthly Calendar</h2>
+                </div>
+
+                <div class="month-controls">
+
+                    <button
+                        type="button"
+                        class="arrow-button"
+                        id="previousMonth"
+                        aria-label="Previous month">
+                        ‹
+                    </button>
+
+                    <div class="month-title" id="monthTitle">
+                        Loading calendar...
+                    </div>
+
+                    <button
+                        type="button"
+                        class="arrow-button"
+                        id="nextMonth"
+                        aria-label="Next month">
+                        ›
+                    </button>
+
+                </div>
+
+                <div
+                    class="calendar-grid"
+                    id="calendarGrid"
+                    aria-label="Monthly calendar">
+                </div>
+
+                <div class="legend">
+
+                    <div class="legend-item">
+                        <span class="legend-dot dot-today"></span>
+                        Today
+                    </div>
+
+                    <div class="legend-item">
+                        <span class="legend-dot dot-period"></span>
+                        Saved period
+                    </div>
+
+                    <div class="legend-item">
+                        <span class="legend-dot dot-predicted"></span>
+                        Estimated period
+                    </div>
+
+                </div>
+
+                <div class="notice">
+                    <strong>🌷 Please remember</strong>
+                    Estimated period dates are only approximate.
+                    Cycle lengths can change from month to month.
+                    Do not use these estimates as contraception advice.
+                </div>
+
+            </section>
+
+            <!-- Side panels -->
+            <aside class="side-panel">
+
+                <!-- Selected date -->
+                <section class="panel">
+
+                    <div class="panel-heading">
+                        <h2>💗 Selected Date</h2>
+                    </div>
+
+                    <div class="selected-date">
+
+                        <div class="emoji">🌸</div>
+
+                        <h3 id="selectedDateTitle">
+                            Select a date
+                        </h3>
+
+                        <p id="selectedDateMessage">
+                            Choose any day on the calendar.
+                        </p>
+
+                    </div>
+
+                    <form
+                        method="POST"
+                        action="{{ url_for('cycle.cycle_page') }}"
+                        id="periodForm">
+
+                        <div class="form-group">
+
+                            <label for="period_start">
+                                Period Start Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="period_start"
+                                name="start_date"
+                                required>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="period_end">
+                                Period End Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="period_end"
+                                name="end_date"
+                                required>
+
+                            <small class="form-help">
+                                Select the first and last day of the
+                                period you want to record.
+                            </small>
+
+                        </div>
+
+                        <button
+                            class="primary-button full-width"
+                            type="submit">
+                            💾 Save Period Dates
+                        </button>
+
+                    </form>
+
+                    <p class="form-help">
+                        This form submits dates to your Flask cycle route.
+                        Your backend must handle the submitted fields
+                        and save them to your database.
+                    </p>
+
+                </section>
+
+                <!-- Helpful tips -->
+                <section class="panel">
+
+                    <div class="panel-heading">
+                        <h2>🌿 Helpful Tips</h2>
+                    </div>
+
+                    <div class="info-item">
+
+                        <div class="info-icon">📝</div>
+
+                        <div>
+                            <h3>Record consistently</h3>
+                            <p>
+                                Save the first day of each period
+                                to build a useful history.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="info-item">
+
+                        <div class="info-icon">💗</div>
+
+                        <div>
+                            <h3>Notice your patterns</h3>
+                            <p>
+                                Review your records over several
+                                cycles rather than relying on one month.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <div class="info-item">
+
+                        <div class="info-icon">🩺</div>
+
+                        <div>
+                            <h3>Seek medical advice when needed</h3>
+                            <p>
+                                Consult a qualified healthcare
+                                professional if you have concerning
+                                symptoms or unusual bleeding.
+                            </p>
+                        </div>
+
+                    </div>
+
+                </section>
+
+            </aside>
+
+        </div>
+
+        <footer class="footer">
+            <p>Made with 🌷 for your wellbeing</p>
+            <p>
+                PeriodWise AI · Personal tracking and wellness awareness
+            </p>
+        </footer>
+
+    </main>
+
+    <script>
+        "use strict";
+
+        const calendarGrid = document.getElementById("calendarGrid");
+        const monthTitle = document.getElementById("monthTitle");
+
+        const selectedDateTitle =
+            document.getElementById("selectedDateTitle");
+
+        const selectedDateMessage =
+            document.getElementById("selectedDateMessage");
+
+        const startInput = document.getElementById("period_start");
+        const endInput = document.getElementById("period_end");
+
+        const previousMonthButton =
+            document.getElementById("previousMonth");
+
+        const nextMonthButton =
+            document.getElementById("nextMonth");
+
+        const todayButton =
+            document.getElementById("todayButton");
+            // Back to Dashboard
+const backButton = document.getElementById("backButton");
+
+backButton.addEventListener("click", function() {
+    window.location.href = "{{ url_for('dashboard') }}";
+});
+
+        const today = new Date();
+
+        let currentYear = today.getFullYear();
+        let currentMonth = today.getMonth();
+
+        let selectedDate = new Date(
+            today.getFullYear(),
+            today.getMonth(),
+            today.getDate()
+        );
+
+        /*
+         * Saved period dates are supplied by Flask if available.
+         * The template remains functional when no records are supplied.
+         *
+         * Expected example:
+         * [
+         *   {"start_date": "2026-10-01", "end_date": "2026-10-05"}
+         * ]
+         */
+
+        const savedPeriods = {{ calendar_periods|default([], true)|tojson }};
+
+        /*
+         * Optional estimated dates:
+         * ["2026-11-01", "2026-11-02"]
+         *
+         * Only estimates supplied by your backend are displayed.
+         * This page does not invent medical predictions.
+         */
+
+        const estimatedDates = {{ estimated_period_dates|default([], true)|tojson }};
+
+        function padNumber(number) {
+            return String(number).padStart(2, "0");
+        }
+
+        function formatDateKey(date) {
+            return (
+                date.getFullYear() + "-" +
+                padNumber(date.getMonth() + 1) + "-" +
+                padNumber(date.getDate())
+            );
+        }
+
+        function parseDateKey(dateString) {
+            if (!dateString || typeof dateString !== "string") {
+                return null;
+            }
+
+            const match = dateString.match(
+                /^(\d{4})-(\d{2})-(\d{2})$/
+            );
+
+            if (!match) {
+                return null;
+            }
+
+            const year = Number(match[1]);
+            const month = Number(match[2]) - 1;
+            const day = Number(match[3]);
+
+            const date = new Date(year, month, day);
+
+            if (
+                date.getFullYear() !== year ||
+                date.getMonth() !== month ||
+                date.getDate() !== day
+            ) {
+                return null;
+            }
+
+            return date;
+        }
+
+        function formatReadableDate(date) {
+            return date.toLocaleDateString("en-IN", {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric"
+            });
+        }
+
+        function isSameDate(first, second) {
+            return (
+                first.getFullYear() === second.getFullYear() &&
+                first.getMonth() === second.getMonth() &&
+                first.getDate() === second.getDate()
+            );
+        }
+
+        function isSavedPeriod(dateKey) {
+            if (!Array.isArray(savedPeriods)) {
+                return false;
+            }
+
+            return savedPeriods.some(function(period) {
+                const start = parseDateKey(
+                    period.start_date || period.period_start
+                );
+
+                const end = parseDateKey(
+                    period.end_date || period.period_end
+                );
+
+                if (!start || !end) {
+                    return false;
+                }
+
+                const current = parseDateKey(dateKey);
+
+                return (
+                    current &&
+                    current >= start &&
+                    current <= end
+                );
+            });
+        }
+
+        function isEstimatedPeriod(dateKey) {
+            if (!Array.isArray(estimatedDates)) {
+                return false;
+            }
+
+            return estimatedDates.includes(dateKey);
+        }
+
+        function updateSelectedDate(date) {
+            selectedDate = new Date(
+                date.getFullYear(),
+                date.getMonth(),
+                date.getDate()
+            );
+
+            selectedDateTitle.textContent =
+                formatReadableDate(selectedDate);
+
+            const dateKey = formatDateKey(selectedDate);
+
+            if (isSavedPeriod(dateKey)) {
+                selectedDateMessage.textContent =
+                    "💗 This date is within a saved period.";
+            } else if (isEstimatedPeriod(dateKey)) {
+                selectedDateMessage.textContent =
+                    "🌸 This date is marked as an estimate.";
+            } else if (isSameDate(selectedDate, today)) {
+                selectedDateMessage.textContent =
+                    "✨ Today. Take a moment for yourself.";
+            } else {
+                selectedDateMessage.textContent =
+                    "Selected date. You can use it in the form.";
+            }
+
+            startInput.value = dateKey;
+
+            if (!endInput.value || endInput.value < dateKey) {
+                endInput.value = dateKey;
+            }
+
+            renderCalendar();
+        }
+
+        function renderCalendar() {
+            calendarGrid.innerHTML = "";
+
+            const monthDate = new Date(
+                currentYear,
+                currentMonth,
+                1
+            );
+
+            monthTitle.textContent = monthDate.toLocaleDateString(
+                "en-IN",
+                {
+                    month: "long",
+                    year: "numeric"
+                }
+            );
+
+            const weekdays = [
+                "Sun", "Mon", "Tue", "Wed",
+                "Thu", "Fri", "Sat"
+            ];
+
+            weekdays.forEach(function(dayName) {
+                const heading = document.createElement("div");
+
+                heading.className = "weekday";
+                heading.textContent = dayName;
+
+                calendarGrid.appendChild(heading);
+            });
+
+            const firstWeekday = new Date(
+                currentYear,
+                currentMonth,
+                1
+            ).getDay();
+
+            const daysInMonth = new Date(
+                currentYear,
+                currentMonth + 1,
+                0
+            ).getDate();
+
+            for (let i = 0; i < firstWeekday; i++) {
+                const emptyCell = document.createElement("div");
+
+                emptyCell.className = "day empty";
+                emptyCell.setAttribute("aria-hidden", "true");
+
+                calendarGrid.appendChild(emptyCell);
+            }
+
+            for (let dayNumber = 1; dayNumber <= daysInMonth; dayNumber++) {
+                const date = new Date(
+                    currentYear,
+                    currentMonth,
+                    dayNumber
+                );
+
+                const dateKey = formatDateKey(date);
+
+                const dayButton = document.createElement("button");
+
+                dayButton.type = "button";
+                dayButton.className = "day";
+                dayButton.setAttribute(
+                    "aria-label",
+                    formatReadableDate(date)
+                );
+
+                const number = document.createElement("span");
+
+                number.className = "day-number";
+                number.textContent = dayNumber;
+
+                dayButton.appendChild(number);
+
+                if (isSameDate(date, today)) {
+                    dayButton.classList.add("today");
+                }
+
+                if (isSameDate(date, selectedDate)) {
+                    dayButton.classList.add("selected");
+                }
+
+                if (isSavedPeriod(dateKey)) {
+                    dayButton.classList.add("period");
+
+                    const marker = document.createElement("span");
+
+                    marker.className = "day-marker";
+                    marker.textContent = "Period";
+
+                    dayButton.appendChild(marker);
+                } else if (isEstimatedPeriod(dateKey)) {
+                    dayButton.classList.add("predicted");
+
+                    const marker = document.createElement("span");
+
+                    marker.className = "day-marker";
+                    marker.textContent = "Estimate";
+
+                    dayButton.appendChild(marker);
+                }
+
+                dayButton.addEventListener("click", function() {
+                    updateSelectedDate(date);
+                });
+
+                calendarGrid.appendChild(dayButton);
+            }
+        }
+
+        previousMonthButton.addEventListener("click", function() {
+            currentMonth--;
+
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+
+            renderCalendar();
+        });
+
+        nextMonthButton.addEventListener("click", function() {
+            currentMonth++;
+
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+
+            renderCalendar();
+        });
+
+        todayButton.addEventListener("click", function() {
+            currentYear = today.getFullYear();
+            currentMonth = today.getMonth();
+
+            updateSelectedDate(today);
+        });
+
+        startInput.addEventListener("change", function() {
+            if (!startInput.value) {
+                return;
+            }
+
+            const chosenDate = parseDateKey(startInput.value);
+
+            if (!chosenDate) {
+                return;
+            }
+
+            if (endInput.value && endInput.value < startInput.value) {
+                endInput.value = startInput.value;
+            }
+
+            currentYear = chosenDate.getFullYear();
+            currentMonth = chosenDate.getMonth();
+
+            updateSelectedDate(chosenDate);
+        });
+
+        endInput.addEventListener("change", function() {
+            if (
+                startInput.value &&
+                endInput.value &&
+                endInput.value < startInput.value
+            ) {
+                endInput.setCustomValidity(
+                    "End date must be on or after the start date."
+                );
+            } else {
+                endInput.setCustomValidity("");
+            }
+        });
+
+        document.getElementById("periodForm").addEventListener(
+            "submit",
+            function(event) {
+                if (
+                    !startInput.value ||
+                    !endInput.value ||
+                    endInput.value < startInput.value
+                ) {
+                    event.preventDefault();
+
+                    endInput.setCustomValidity(
+                        "End date must be on or after the start date."
+                    );
+
+                    endInput.reportValidity();
+
+                    return;
+                }
+
+                endInput.setCustomValidity("");
+            }
+        );
+
+        /* Initial page render */
+        updateSelectedDate(today);
+    </script>
+
+</body>
+</html>
+```

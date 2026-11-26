@@ -1,0 +1,788 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Reminders | PeriodWise AI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #fff0f6, #f3e8ff);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #e75480, #9370db);
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 27px;
+        }
+
+        header p {
+            margin-top: 5px;
+            font-size: 13px;
+        }
+
+        nav {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 9px 12px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.18);
+            font-size: 13px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 35px auto;
+        }
+
+        .hero {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(100, 50, 100, 0.08);
+        }
+
+        .hero h2 {
+            color: #c43d7a;
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 22px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(100, 50, 100, 0.06);
+        }
+
+        .summary-card .icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .summary-card h3 {
+            color: #c43d7a;
+            font-size: 17px;
+            margin-bottom: 8px;
+        }
+
+        .summary-card p {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 23px;
+            align-items: start;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: 0 5px 20px rgba(100, 50, 100, 0.07);
+            border: 1px solid #f7d8e7;
+        }
+
+        .panel h3 {
+            color: #c43d7a;
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
+
+        .description {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 22px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            color: #555;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e6c6d8;
+            border-radius: 9px;
+            background: #fffafd;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: 2px solid #e75480;
+            border-color: transparent;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 19px;
+            border: none;
+            border-radius: 9px;
+            background: linear-gradient(135deg, #e75480, #a45bd1);
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            opacity: 0.88;
+        }
+
+        .reminder-item {
+            padding: 17px;
+            border: 1px solid #f3d8e7;
+            border-radius: 12px;
+            margin-bottom: 14px;
+            background: #fffafd;
+        }
+
+        .reminder-item h4 {
+            color: #b83270;
+            font-size: 16px;
+            margin-bottom: 8px;
+            overflow-wrap: anywhere;
+        }
+
+        .reminder-item p {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        .reminder-type {
+            display: inline-block;
+            background: #fce4ef;
+            color: #a52d66;
+            padding: 5px 9px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 9px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px 15px;
+            color: #777;
+            line-height: 1.8;
+        }
+
+        .empty-state .icon {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            padding: 13px 16px;
+            margin-bottom: 20px;
+            border-radius: 9px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .message.success {
+            background: #e8f8ee;
+            color: #216e39;
+        }
+
+        .message.error {
+            background: #ffe9ed;
+            color: #a32240;
+        }
+
+        .message.info {
+            background: #f0eaff;
+            color: #6241a5;
+        }
+
+        .tips-panel {
+            margin-top: 25px;
+            background: linear-gradient(135deg, #e75480, #9370db);
+            color: white;
+            padding: 27px;
+            border-radius: 18px;
+        }
+
+        .tips-panel h3 {
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
+
+        .tips-panel ul {
+            padding-left: 22px;
+        }
+
+        .tips-panel li {
+            margin-bottom: 9px;
+            line-height: 1.7;
+        }
+
+        .quick-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .quick-links a {
+            text-decoration: none;
+            background: white;
+            color: #b83270;
+            border: 1px solid #f3d8e7;
+            border-radius: 9px;
+            padding: 11px 15px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .quick-links a:hover {
+            background: #fff0f6;
+        }
+
+        footer {
+            text-align: center;
+            color: #777;
+            padding: 25px 15px;
+            margin-top: 35px;
+            font-size: 13px;
+        }
+
+        footer a {
+            color: #b83270;
+            text-decoration: none;
+            margin: 0 6px;
+        }
+
+        @media (max-width: 800px) {
+            .summary-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            header {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 23px;
+            }
+
+            .container {
+                width: 92%;
+                margin-top: 22px;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .panel,
+            .hero {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div>
+        <h1>🌸 PeriodWise AI</h1>
+        <p>Your personal menstrual wellness companion</p>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('dashboard') }}">🏠 Dashboard</a>
+        <a href="{{ url_for('cycle.cycle_page') }}">🌷 Cycle Tracker</a>
+        <a href="{{ url_for('calendar') }}">🗓️ Calendar</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <h2>🔔 My Reminders</h2>
+
+        <p>
+            Organise your personal reminders for period tracking,
+            self-care and daily wellness. Add a reminder and review
+            the records provided by your application.
+        </p>
+    </section>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="message
+                    {% if category == 'success' %}success
+                    {% elif category == 'error' %}error
+                    {% else %}info{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <section class="summary-grid">
+
+        <article class="summary-card">
+            <div class="icon">🩸</div>
+            <h3>Period Reminder</h3>
+            <p>
+                Keep track of expected dates using your recorded
+                cycle information.
+            </p>
+        </article>
+
+        <article class="summary-card">
+            <div class="icon">💧</div>
+            <h3>Self-Care Reminder</h3>
+            <p>
+                Create reminders for hydration, rest and other
+                personal wellness habits.
+            </p>
+        </article>
+
+        <article class="summary-card">
+            <div class="icon">💊</div>
+            <h3>Personal Reminder</h3>
+            <p>
+                Record personal notes or other reminders you
+                want to keep track of.
+            </p>
+        </article>
+
+    </section>
+
+    <section class="content-grid">
+
+        <!-- Create Reminder -->
+        <section class="panel">
+
+            <h3>➕ Create a Reminder</h3>
+
+            <p class="description">
+                Enter the details below. Saving and scheduling
+                depend on the backend implementation.
+            </p>
+
+            <form action="{{ url_for('reminder.reminders_page') }}"
+                  method="POST">
+
+                <div class="form-group">
+                    <label for="title">Reminder Title *</label>
+
+                    <input
+                        type="text"
+                        id="title"
+                        name="title"
+                        placeholder="e.g. Self-care reminder"
+                        maxlength="120"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="reminder_type">Reminder Type *</label>
+
+                    <select id="reminder_type"
+                            name="reminder_type"
+                            required>
+
+                        <option value="">Select a type</option>
+                        <option value="Period">Period Reminder</option>
+                        <option value="Self-care">Self-Care</option>
+                        <option value="Hydration">Hydration</option>
+                        <option value="Medication">Medication</option>
+                        <option value="Personal">Personal</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="reminder_date">Date *</label>
+
+                    <input
+                        type="date"
+                        id="reminder_date"
+                        name="reminder_date"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="reminder_time">Time</label>
+
+                    <input
+                        type="time"
+                        id="reminder_time"
+                        name="reminder_time"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Notes (Optional)</label>
+
+                    <textarea
+                        id="notes"
+                        name="notes"
+                        placeholder="Add a note for this reminder..."
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="btn">
+                    💾 Save Reminder
+                </button>
+
+            </form>
+
+        </section>
+
+        <!-- Reminder List -->
+        <section class="panel">
+
+            <h3>📋 My Reminder List</h3>
+
+            <p class="description">
+                Your saved reminders can appear here when the backend
+                passes reminder records to this template.
+            </p>
+
+            {% set reminder_records = reminders|default([], true) %}
+
+            {% if reminder_records %}
+
+                {% for reminder in reminder_records %}
+
+                    <article
+    class="reminder-item"
+    data-reminder-at="{% if reminder.reminder_date %}{{ reminder.reminder_date.strftime('%Y-%m-%dT%H:%M:%S') }}Z{% endif %}"
+    data-reminder-title="{{ reminder.title|default('Reminder', true)|e }}"
+>
+
+                        <span class="reminder-type">
+                            {{ reminder.reminder_type|default('Personal', true) }}
+                        </span>
+
+                        <h4>
+                            {{ reminder.title|default('Untitled Reminder', true) }}
+                        </h4>
+
+                        <p>
+                            📅 Date:
+                            {% if reminder.reminder_date %}
+    {{ reminder.reminder_date.strftime('%d-%m-%Y') }}
+{% else %}
+    Not specified
+{% endif %}
+                        </p>
+
+                        <p>
+                            🕒 Time:
+                            {{ reminder.reminder_time|default('09:00', true) }}
+                        </p>
+
+                        {% if reminder.notes is defined and reminder.notes %}
+                            <p>
+                                📝 {{ reminder.notes }}
+                            </p>
+                        {% endif %}
+
+
+
+                        <form
+    action="{{ url_for('reminder.delete_reminder', reminder_id=reminder._id) }}"
+    method="POST"
+    onsubmit="return confirm('Are you sure you want to delete this reminder?');"
+>
+    <button type="submit" class="btn">
+        🗑️ Delete Reminder
+    </button>
+</form>
+                    </article>
+
+                {% endfor %}
+
+            {% else %}
+
+                <div class="empty-state">
+                    <div class="icon">🔔</div>
+
+                    <h4>No reminders to display</h4>
+
+                    <p>
+                        Once your backend saves and supplies reminder
+                        records, they can appear in this section.
+                    </p>
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </section>
+
+    <section class="tips-panel">
+
+        <h3>💗 Gentle Wellness Tips</h3>
+
+        <ul>
+            <li>Keep your period dates updated in the cycle tracker.</li>
+            <li>Set personal reminders for hydration and rest if useful.</li>
+            <li>Use notes to record questions you want to discuss with a healthcare professional.</li>
+            <li>Period predictions are estimates and may not always be accurate.</li>
+        </ul>
+
+    </section>
+
+    <section class="quick-links">
+
+        <a href="{{ url_for('dashboard') }}">🏠 Dashboard</a>
+
+        <a href="{{ url_for('cycle.cycle_page') }}">🌷 Cycle Tracker</a>
+
+        <a href="{{ url_for('calendar') }}">🗓️ Period Calendar</a>
+
+        <a href="{{ url_for('analytics.analytics_page') }}">📊 Analytics</a>
+
+        <a href="{{ url_for('insights') }}">✨ Health Insights</a>
+
+        <a href="{{ url_for('privacy') }}">🔒 Privacy Policy</a>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 PeriodWise AI | Take care of yourself 💗</p>
+
+    <p style="margin-top: 9px;">
+        <a href="{{ url_for('about') }}">About Us</a>
+        <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+    </p>
+</footer>
+</footer>
+
+<!-- Notification Button -->
+<div style="text-align:center; margin:20px;">
+    <button type="button" id="enableNotifications" class="btn">
+        🔔 Enable Notification &amp; Sound
+    </button>
+
+    <p id="notificationStatus" style="margin-top:10px;">
+        Enable notifications to receive reminder alerts.
+    </p>
+</div>
+
+<script>
+const reminderDateInput = document.getElementById("reminder_date");
+
+if (reminderDateInput) {
+    const today = new Date();
+
+    const localDate = new Date(
+        today.getTime() - today.getTimezoneOffset() * 60000
+    ).toISOString().split("T")[0];
+
+    reminderDateInput.min = localDate;
+}
+
+const enableButton = document.getElementById("enableNotifications");
+const statusText = document.getElementById("notificationStatus");
+
+let audioContext = null;
+
+if (enableButton) {
+    enableButton.addEventListener("click", async function () {
+
+        if (!("Notification" in window)) {
+            statusText.textContent =
+                "Notifications are not supported by this browser.";
+            return;
+        }
+
+        const permission = await Notification.requestPermission();
+
+        if (permission === "granted") {
+
+            const AudioContextClass =
+                window.AudioContext || window.webkitAudioContext;
+
+            if (AudioContextClass) {
+                audioContext = new AudioContextClass();
+
+                if (audioContext.state === "suspended") {
+                    await audioContext.resume();
+                }
+            }
+
+            statusText.textContent =
+                "Notifications and sound enabled!";
+
+            enableButton.textContent =
+                "Notifications Enabled";
+
+        } else {
+            statusText.textContent =
+                "Please allow notifications in browser settings.";
+        }
+    });
+}
+
+function playReminderSound() {
+    if (!audioContext) return;
+
+    for (let i = 0; i < 3; i++) {
+
+        const oscillator = audioContext.createOscillator();
+        const gain = audioContext.createGain();
+
+        oscillator.connect(gain);
+        gain.connect(audioContext.destination);
+
+        oscillator.frequency.value = 880;
+        gain.gain.value = 0.2;
+
+        const startTime =
+            audioContext.currentTime + (i * 0.5);
+
+        oscillator.start(startTime);
+        oscillator.stop(startTime + 0.25);
+    }
+}
+
+function checkReminders() {
+
+    if (
+        !("Notification" in window) ||
+        Notification.permission !== "granted"
+    ) {
+        return;
+    }
+
+    const now = Date.now();
+
+    document.querySelectorAll(".reminder-item").forEach(
+        function (item) {
+
+            const reminderTime = item.dataset.reminderAt;
+
+            const title =
+                item.dataset.reminderTitle ||
+                "PeriodWise AI Reminder";
+
+            if (!reminderTime) return;
+
+            const scheduledTime =
+                new Date(reminderTime).getTime();
+
+            if (Number.isNaN(scheduledTime)) return;
+
+            const alertKey =
+                "reminder-alert-" +
+                reminderTime +
+                "-" +
+                title;
+
+            if (
+                now >= scheduledTime &&
+                now - scheduledTime <= 300000 &&
+                !sessionStorage.getItem(alertKey)
+            ) {
+
+                new Notification(
+                    "PeriodWise AI Reminder",
+                    {
+                        body: "It's time for: " + title
+                    }
+                );
+
+                playReminderSound();
+
+                sessionStorage.setItem(alertKey, "shown");
+            }
+        }
+    );
+}
+
+setInterval(checkReminders, 5000);
+checkReminders();
+</script>
+</body>
+</html>

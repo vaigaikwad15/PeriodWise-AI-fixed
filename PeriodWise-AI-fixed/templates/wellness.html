@@ -1,0 +1,1153 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Wellness | Lunavelle</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #fff0f6, #f3e8ff);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #e75480, #9370db);
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+/* Lunavelle Wellness Branding */
+
+.wellness-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.wellness-logo {
+    width: 180px;
+    height: 75px;
+    object-fit: contain;
+    object-position: left center;
+    display: block;
+}
+
+.wellness-brand p {
+    font-size: 13px;
+    color: white;
+    margin: 0;
+    opacity: 0.95;
+}
+.wellness-logo {
+    width: 150px;
+    height: 65px;
+}
+        header h1 {
+            font-size: 27px;
+        }
+
+        header p {
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 9px 12px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.18);
+            font-size: 13px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        .hero {
+            background: white;
+            padding: 35px;
+            border-radius: 20px;
+            margin-bottom: 28px;
+            box-shadow: 0 5px 20px rgba(100, 50, 100, 0.08);
+        }
+
+        .hero h2 {
+            color: #c43d7a;
+            font-size: 30px;
+            margin-bottom: 13px;
+        }
+
+        .hero p {
+            color: #666;
+            line-height: 1.9;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            background: #fff0f6;
+            color: #b83270;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            margin-top: 17px;
+        }
+
+        .section-title {
+            color: #8a3e75;
+            font-size: 24px;
+            margin: 32px 0 19px;
+        }
+
+        .wellness-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .wellness-card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            border: 1px solid #f7d8e7;
+            box-shadow: 0 5px 20px rgba(100, 50, 100, 0.07);
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .wellness-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(180, 80, 140, 0.13);
+        }
+
+        .icon {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .wellness-card h3 {
+            color: #c43d7a;
+            font-size: 19px;
+            margin-bottom: 12px;
+        }
+
+        .wellness-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        .wellness-card ul {
+            padding-left: 19px;
+            margin-top: 12px;
+            color: #666;
+            font-size: 14px;
+        }
+
+        .wellness-card li {
+            margin-bottom: 8px;
+            line-height: 1.7;
+        }
+
+        .routine {
+            background: white;
+            padding: 28px;
+            border-radius: 18px;
+            margin-top: 28px;
+            box-shadow: 0 5px 20px rgba(100, 50, 100, 0.07);
+        }
+
+        .routine h3 {
+            color: #c43d7a;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .routine-item {
+            display: flex;
+            gap: 15px;
+            padding: 17px 0;
+            border-bottom: 1px solid #f3dce8;
+        }
+
+        .routine-item:last-child {
+            border-bottom: none;
+        }
+
+        .routine-icon {
+            font-size: 27px;
+            min-width: 35px;
+        }
+
+        .routine-item h4 {
+            color: #b83270;
+            margin-bottom: 7px;
+        }
+
+        .routine-item p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #e75480, #9370db);
+            color: white;
+            padding: 30px;
+            border-radius: 18px;
+            margin-top: 28px;
+        }
+
+        .highlight h3 {
+            font-size: 23px;
+            margin-bottom: 12px;
+        }
+
+        .highlight p {
+            line-height: 1.9;
+            font-size: 15px;
+        }
+
+        .disclaimer {
+            margin-top: 25px;
+            background: #fff8fc;
+            border-left: 5px solid #e75480;
+            padding: 22px;
+            border-radius: 10px;
+            color: #666;
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        .quick-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 27px;
+        }
+
+        .quick-links a {
+            text-decoration: none;
+            background: white;
+            color: #b83270;
+            border: 1px solid #f3d8e7;
+            border-radius: 9px;
+            padding: 12px 16px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .quick-links a:hover {
+            background: #fff0f6;
+        }
+
+        footer {
+            text-align: center;
+            color: #777;
+            padding: 25px 15px;
+            margin-top: 35px;
+            font-size: 13px;
+        }
+
+        footer a {
+            color: #b83270;
+            text-decoration: none;
+            margin: 0 7px;
+        }
+
+        @media (max-width: 900px) {
+            .wellness-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 23px;
+            }
+
+            .container {
+                width: 92%;
+                margin-top: 22px;
+            }
+
+            .wellness-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero,
+            .routine {
+                padding: 23px;
+            }
+
+            .hero h2 {
+                font-size: 25px;
+            }
+
+            .highlight {
+                padding: 24px;
+            }
+        }
+        /* ======================================
+   LUNAVELLE AI WELLNESS HUB
+====================================== */
+
+.ai-wellness-hub {
+    margin-top: 30px;
+    padding: 32px;
+    background: #ffffff;
+    border: 1px solid #f0dce9;
+    border-radius: 24px;
+    box-shadow: 0 8px 28px rgba(160, 100, 150, 0.06);
+}
+
+
+/* AI Header */
+
+.ai-wellness-header {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #f2e5ef;
+}
+
+.ai-wellness-icon {
+    width: 58px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #ffe7f2, #eee5ff);
+    font-size: 27px;
+}
+
+.ai-wellness-heading {
+    flex: 1;
+}
+
+.ai-wellness-label {
+    display: block;
+    color: #b76b9b;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 7px;
+}
+
+.ai-wellness-heading h2 {
+    color: #a94b83;
+    font-size: 25px;
+    margin-bottom: 8px;
+}
+
+.ai-wellness-heading p {
+    color: #88758e;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+.ai-wellness-badge {
+    padding: 9px 13px;
+    border-radius: 20px;
+    background: #fceaf4;
+    color: #b64e89;
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+
+/* Section Spacing */
+
+.ai-wellness-section {
+    margin-top: 27px;
+}
+
+.ai-section-heading {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 18px;
+}
+
+.ai-section-icon {
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 14px;
+    background: #fff0f7;
+    font-size: 21px;
+}
+
+.ai-section-heading h3 {
+    color: #a94b83;
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+
+.ai-section-heading p {
+    color: #918096;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+
+/* Recommendation Cards */
+
+.ai-recommendation-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.ai-recommendation-card {
+    min-width: 0;
+    padding: 21px;
+    background: #fffafd;
+    border: 1px solid #f1e0ec;
+    border-radius: 17px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.ai-recommendation-card:hover {
+    transform: translateY(-3px);
+    border-color: #e5bfd8;
+}
+
+.ai-recommendation-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 17px;
+}
+
+.ai-recommendation-symbol {
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 11px;
+    background: #f8eaf5;
+    color: #b75b99;
+    font-size: 20px;
+}
+
+.ai-category-badge {
+    max-width: 75%;
+    padding: 6px 10px;
+    border-radius: 20px;
+    background: #fceaf4;
+    color: #a95788;
+    font-size: 10px;
+    font-weight: 600;
+    overflow-wrap: anywhere;
+}
+
+.ai-recommendation-card h4 {
+    color: #a94b83;
+    font-size: 16px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.ai-recommendation-text {
+    color: #786a80;
+    font-size: 13px;
+    line-height: 1.9;
+}
+
+
+/* Evidence */
+
+.ai-evidence {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 16px;
+    padding-top: 13px;
+    border-top: 1px solid #f0e5ef;
+}
+
+.ai-evidence span {
+    color: #b795b8;
+    font-size: 13px;
+}
+
+.ai-evidence small {
+    color: #95849a;
+    font-size: 11px;
+    line-height: 1.7;
+}
+
+
+/* Food Suggestions */
+
+.ai-food-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.ai-food-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    background: #fffafd;
+    border: 1px solid #f1e3ed;
+    border-radius: 14px;
+}
+
+.ai-food-icon {
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: #edf7ee;
+    border-radius: 11px;
+    font-size: 17px;
+}
+
+.ai-food-item h4 {
+    color: #a94b83;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.ai-food-item p {
+    color: #817386;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+
+/* Traditional Tips */
+
+.ai-tip-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 13px;
+}
+
+.ai-tip-card {
+    padding: 18px;
+    background: #fcf9ff;
+    border: 1px solid #eee3f5;
+    border-radius: 15px;
+}
+
+.ai-tip-symbol {
+    display: block;
+    color: #b88ac8;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.ai-tip-card h4 {
+    color: #a94b83;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.ai-tip-card p {
+    color: #817386;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+
+/* Empty State */
+
+.ai-wellness-empty {
+    padding: 18px;
+    background: #fffafd;
+    border: 1px dashed #e8d7e8;
+    border-radius: 14px;
+    color: #8c7b91;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+
+/* Disclaimer */
+
+.ai-wellness-disclaimer {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 27px;
+    padding: 18px;
+    background: #fff9f1;
+    border: 1px solid #f2e5d2;
+    border-radius: 14px;
+}
+
+.ai-wellness-disclaimer span {
+    color: #b18d63;
+    font-size: 16px;
+}
+
+.ai-wellness-disclaimer p {
+    color: #88765e;
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+
+/* Responsive */
+
+@media (max-width: 700px) {
+
+    .ai-wellness-hub {
+        padding: 22px;
+    }
+
+    .ai-wellness-header {
+        align-items: flex-start;
+    }
+
+    .ai-wellness-badge {
+        display: none;
+    }
+
+    .ai-wellness-heading h2 {
+        font-size: 21px;
+    }
+
+    .ai-recommendation-grid,
+    .ai-food-list,
+    .ai-tip-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="wellness-brand">
+
+    <img
+        src="{{ url_for('static', filename='image/logo.png') }}"
+        alt="Lunavelle Logo"
+        class="wellness-logo"
+    >
+
+
+</div>
+
+    <nav>
+        <a href="{{ url_for('dashboard') }}">🏠 Dashboard</a>
+        <a href="{{ url_for('cycle.cycle_page') }}">🌷 Cycle Tracker</a>
+        <a href="{{ url_for('calendar') }}">🗓️ Calendar</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <h2>💗 Your Wellness Space</h2>
+
+        <p>
+            Your well-being matters every day. Explore simple self-care
+            practices for menstrual health, nutrition, movement, sleep
+            and emotional well-being. Choose the habits that feel right
+            for your body and daily routine.
+        </p>
+
+        <span class="hero-tag">
+            🌷 Small habits, mindful living
+        </span>
+    </section>
+
+    <h2 class="section-title">✨ Explore Wellness</h2>
+
+    <section class="wellness-grid">
+
+        <article class="wellness-card">
+            <div class="icon">🥗</div>
+
+            <h3>Healthy Nutrition</h3>
+
+            <p>
+                Balanced nutrition supports general health and can help
+                you meet your body's needs throughout your cycle.
+            </p>
+
+            <ul>
+                <li>Include fruits and vegetables.</li>
+                <li>Choose whole grains and protein-rich foods.</li>
+                <li>Include iron-rich foods in your meals.</li>
+                <li>Eat regular, balanced meals when possible.</li>
+            </ul>
+        </article>
+
+        <article class="wellness-card">
+            <div class="icon">💧</div>
+
+            <h3>Hydration</h3>
+
+            <p>
+                Drinking enough fluids throughout the day supports
+                normal body functions.
+            </p>
+
+            <ul>
+                <li>Keep water nearby.</li>
+                <li>Drink regularly throughout the day.</li>
+                <li>Adjust your intake to activity and weather.</li>
+                <li>Choose drinks that suit your needs.</li>
+            </ul>
+        </article>
+
+        <article class="wellness-card">
+            <div class="icon">🚶‍♀️</div>
+
+            <h3>Physical Activity</h3>
+
+            <p>
+                Gentle movement may support mood and general well-being.
+                Choose activities that feel comfortable.
+            </p>
+
+            <ul>
+                <li>Try walking or gentle stretching.</li>
+                <li>Take breaks when needed.</li>
+                <li>Adjust activity to your energy level.</li>
+                <li>Stop if movement causes significant pain.</li>
+            </ul>
+        </article>
+
+        <article class="wellness-card">
+            <div class="icon">😴</div>
+
+            <h3>Sleep & Rest</h3>
+
+            <p>
+                Consistent sleep and enough rest help support physical
+                and emotional health.
+            </p>
+
+            <ul>
+                <li>Try to maintain a regular sleep schedule.</li>
+                <li>Create a calm bedtime routine.</li>
+                <li>Reduce screen use before sleeping if helpful.</li>
+                <li>Allow yourself to rest when tired.</li>
+            </ul>
+        </article>
+
+        <article class="wellness-card">
+            <div class="icon">🧘‍♀️</div>
+
+            <h3>Stress Management</h3>
+
+            <p>
+                Relaxation practices may help you manage everyday stress
+                and pay attention to your emotional well-being.
+            </p>
+
+            <ul>
+                <li>Try slow, comfortable breathing.</li>
+                <li>Listen to calming music.</li>
+                <li>Write down your thoughts.</li>
+                <li>Make time for activities you enjoy.</li>
+            </ul>
+        </article>
+
+        <article class="wellness-card">
+            <div class="icon">🌷</div>
+
+            <h3>Menstrual Self-Care</h3>
+
+            <p>
+                Pay attention to your comfort during menstruation and
+                choose self-care practices that work for you.
+            </p>
+
+            <ul>
+                <li>Keep track of your period dates.</li>
+                <li>Change menstrual products as directed.</li>
+                <li>Consider a warm compress for cramps.</li>
+                <li>Record symptoms and unusual changes.</li>
+            </ul>
+        </article>
+
+    </section>
+<!-- Lunavelle AI Wellness Hub -->
+
+<section class="ai-wellness-hub">
+
+    <!-- AI Header -->
+
+    <div class="ai-wellness-header">
+
+        <div class="ai-wellness-icon">
+            ✨
+        </div>
+
+        <div class="ai-wellness-heading">
+
+            <span class="ai-wellness-label">
+                YOUR PERSONAL WELLNESS GUIDE
+            </span>
+
+            <h2>AI Wellness Recommendations</h2>
+
+            <p>
+                Thoughtful wellness suggestions to support your
+                everyday menstrual health and self-care.
+            </p>
+
+        </div>
+
+        <div class="ai-wellness-badge">
+            AI INSIGHTS
+        </div>
+
+    </div>
+
+
+    <!-- Personal Recommendations -->
+
+    <div class="ai-wellness-section">
+
+        <div class="ai-section-heading">
+
+            <span class="ai-section-icon">💗</span>
+
+            <div>
+                <h3>Personalised Recommendations</h3>
+
+                <p>
+                    Suggestions based on your wellness information.
+                </p>
+            </div>
+
+        </div>
+
+
+        {% if wellness.recommendations %}
+
+            <div class="ai-recommendation-grid">
+
+                {% for item in wellness.recommendations %}
+
+                    <article class="ai-recommendation-card">
+
+                        <div class="ai-recommendation-top">
+
+                            <span class="ai-recommendation-symbol">
+                                ✦
+                            </span>
+
+                            <span class="ai-category-badge">
+                                {{ item.category }}
+                            </span>
+
+                        </div>
+
+                        <h4>{{ item.title }}</h4>
+
+                        <p class="ai-recommendation-text">
+                            {{ item.suggestion }}
+                        </p>
+
+                        {% if item.evidence %}
+
+                            <div class="ai-evidence">
+
+                                <span>ⓘ</span>
+
+                                <small>
+                                    {{ item.evidence }}
+                                </small>
+
+                            </div>
+
+                        {% endif %}
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="ai-wellness-empty">
+
+                <span>🌷</span>
+
+                <p>
+                    Your personalised wellness recommendations
+                    will appear here when available.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- Food Suggestions -->
+
+    <div class="ai-wellness-section">
+
+        <div class="ai-section-heading">
+
+            <span class="ai-section-icon">🥗</span>
+
+            <div>
+                <h3>Food Suggestions</h3>
+
+                <p>
+                    Nourishing food ideas for your daily routine.
+                </p>
+            </div>
+
+        </div>
+
+
+        {% if wellness.food_suggestions %}
+
+            <div class="ai-food-list">
+
+                {% for food in wellness.food_suggestions %}
+
+                    <div class="ai-food-item">
+
+                        <span class="ai-food-icon">🌿</span>
+
+                        <div>
+
+                            <h4>{{ food.food }}</h4>
+
+                            <p>{{ food.reason }}</p>
+
+                        </div>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="ai-wellness-empty">
+                Food suggestions will appear here when available.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- Traditional Wellness Tips -->
+
+    <div class="ai-wellness-section">
+
+        <div class="ai-section-heading">
+
+            <span class="ai-section-icon">🌸</span>
+
+            <div>
+                <h3>Traditional Wellness Tips</h3>
+
+                <p>
+                    Simple self-care practices you may find helpful.
+                </p>
+            </div>
+
+        </div>
+
+
+        {% if wellness.traditional_tips %}
+
+            <div class="ai-tip-grid">
+
+                {% for tip in wellness.traditional_tips %}
+
+                    <article class="ai-tip-card">
+
+                        <span class="ai-tip-symbol">✿</span>
+
+                        <h4>{{ tip.name }}</h4>
+
+                        <p>{{ tip.suggestion }}</p>
+
+                    </article>
+
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+
+            <div class="ai-wellness-empty">
+                Wellness tips will appear here when available.
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- Wellness Disclaimer -->
+
+    <div class="ai-wellness-disclaimer">
+
+        <span>ⓘ</span>
+
+        <p>
+            {{ wellness.disclaimer }}
+        </p>
+
+    </div>
+
+</section>
+    <section class="routine">
+
+        <h3>🌞 A Simple Daily Self-Care Routine</h3>
+
+        <div class="routine-item">
+            <div class="routine-icon">🌅</div>
+
+            <div>
+                <h4>Morning</h4>
+                <p>
+                    Start your day with water, a balanced breakfast
+                    and a few minutes of gentle movement if comfortable.
+                </p>
+            </div>
+        </div>
+
+        <div class="routine-item">
+            <div class="routine-icon">☀️</div>
+
+            <div>
+                <h4>Afternoon</h4>
+                <p>
+                    Eat a balanced meal, take breaks and notice your
+                    energy level. Rest when you need to.
+                </p>
+            </div>
+        </div>
+
+        <div class="routine-item">
+            <div class="routine-icon">🌆</div>
+
+            <div>
+                <h4>Evening</h4>
+                <p>
+                    Make time for a relaxing activity and record any
+                    menstrual symptoms you want to remember.
+                </p>
+            </div>
+        </div>
+
+        <div class="routine-item">
+            <div class="routine-icon">🌙</div>
+
+            <div>
+                <h4>Before Bed</h4>
+                <p>
+                    Prepare for a restful night with a comfortable
+                    bedtime routine and a calm environment.
+                </p>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="highlight">
+        <h3>🌸 Listen to Your Body</h3>
+
+        <p>
+            Every person's menstrual experience is different.
+            Notice changes in your symptoms, energy and mood without
+            judging yourself. PeriodWise AI can help you keep records,
+            but it cannot replace personalised medical advice.
+        </p>
+    </section>
+
+    <section class="disclaimer">
+        <strong>⚕️ Health Disclaimer</strong>
+
+        <p style="margin-top: 8px;">
+            This page provides general wellness information and is not
+            a diagnosis or treatment plan. Consult a qualified healthcare
+            professional about persistent or concerning symptoms. Seek
+            urgent medical attention for severe pain, fainting, or very
+            heavy bleeding accompanied by weakness or dizziness.
+        </p>
+    </section>
+
+    <section class="quick-links">
+        <a href="{{ url_for('dashboard') }}">🏠 Dashboard</a>
+        <a href="{{ url_for('cycle.cycle_page') }}">🌷 Cycle Tracker</a>
+        <a href="{{ url_for('calendar') }}">🗓️ Period Calendar</a>
+        <a href="{{ url_for('symptom.symptoms_page') }}">📝 Symptoms</a>
+        <a href="{{ url_for('analytics.analytics_page') }}">📊 Analytics</a>
+        <a href="{{ url_for('insights') }}">✨ Health Insights</a>
+        <a href="{{ url_for('privacy') }}">🔒 Privacy Policy</a>
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 Lunavelle | Take care of yourself 💗</p>
+
+    <p style="margin-top: 9px;">
+        <a href="{{ url_for('about') }}">About Us</a>
+        <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+    </p>
+</footer>
+
+</body>
+</html>
+

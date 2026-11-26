@@ -1,0 +1,531 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lunavelle | Privacy Policy</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #fff0f6, #f3e8ff);
+            color: #333;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #e75480, #9370db);
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .brand h1 {
+            font-size: 27px;
+        }
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.privacy-logo {
+    width: 150px;
+    height: 60px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+}
+        .brand p {
+            font-size: 13px;
+            margin-top: 3px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            padding: 9px 13px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.17);
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1050px;
+            margin: 35px auto;
+        }
+
+        .hero {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(100, 50, 100, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .hero .icon {
+            font-size: 48px;
+            margin-bottom: 10px;
+        }
+
+        .hero h2 {
+            color: #c43d7a;
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: #666;
+        }
+
+        .updated {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 7px 13px;
+            background: #fff0f6;
+            color: #a52d66;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .policy-card {
+            background: white;
+            border-radius: 16px;
+            padding: 27px;
+            margin-bottom: 18px;
+            box-shadow: 0 4px 16px rgba(100, 50, 100, 0.06);
+            border: 1px solid #f7d8e7;
+        }
+
+        .policy-card h3 {
+            color: #c43d7a;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .policy-card p {
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .policy-card ul {
+            padding-left: 23px;
+            color: #555;
+        }
+
+        .policy-card li {
+            margin-bottom: 8px;
+        }
+
+        .highlight {
+            background: #fff5fa;
+            border-left: 5px solid #e75480;
+            padding: 17px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .highlight strong {
+            color: #a52d66;
+        }
+
+        .contact-card {
+            background: linear-gradient(135deg, #e75480, #9370db);
+            color: white;
+            padding: 28px;
+            border-radius: 18px;
+            text-align: center;
+            margin-top: 25px;
+        }
+
+        .contact-card h3 {
+            font-size: 23px;
+            margin-bottom: 10px;
+        }
+
+        .contact-card p {
+            margin-bottom: 15px;
+        }
+
+        .contact-card a {
+            display: inline-block;
+            background: white;
+            color: #c43d7a;
+            text-decoration: none;
+            padding: 11px 19px;
+            border-radius: 9px;
+            font-weight: bold;
+        }
+
+        .contact-card a:hover {
+            background: #fff0f6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            margin-top: 35px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        .footer-links {
+            margin-top: 10px;
+        }
+
+        .footer-links a {
+            color: #b83270;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 20px;
+            }
+
+            .brand h1 {
+                font-size: 23px;
+            }
+.privacy-logo {
+    width: 115px;
+    height: 48px;
+}
+
+.brand-logo {
+    gap: 10px;
+}
+            .container {
+                width: 92%;
+                margin-top: 22px;
+            }
+
+            .hero {
+                padding: 25px 18px;
+            }
+
+            .hero h2 {
+                font-size: 25px;
+            }
+
+            .policy-card {
+                padding: 21px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="brand">
+        <div class="brand-logo">
+    <img
+        src="{{ url_for('static', filename='image/logo.png') }}"
+        alt="Lunavelle Logo"
+        class="privacy-logo"
+    >
+    <h1>Lunavelle</h1>
+</div>
+        
+    </div>
+
+    <nav>
+        <a href="{{ url_for('home') }}">🏠 Home</a>
+        <a href="{{ url_for('auth.login') }}">Login</a>
+        <a href="{{ url_for('auth.register') }}">Register</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <div class="icon">🔒</div>
+
+        <h2>Privacy Policy</h2>
+
+        <p>
+            Your privacy matters to us. This page explains how Lunavelle
+            is intended to handle personal information and menstrual wellness
+            records when you use the application.
+        </p>
+
+        <span class="updated">
+            Last updated: October 2026
+        </span>
+    </section>
+
+    <section class="policy-card">
+        <h3>1. Introduction</h3>
+
+        <p>
+            Lunavelle is a menstrual cycle and wellness tracking
+            application. This Privacy Policy describes the types of
+            information the application may process, how that information
+            may be used, and the choices available to users.
+        </p>
+
+        <p>
+            The actual data practices depend on the application's implemented
+            backend, database, hosting environment and connected services.
+        </p>
+    </section>
+
+    <section class="policy-card">
+        <h3>2. Information You May Provide</h3>
+
+        <p>Depending on the features you use, the application may process:</p>
+
+        <ul>
+            <li>
+                <strong>Account information:</strong>
+                information such as a username, email address or login details.
+            </li>
+
+            <li>
+                <strong>Menstrual cycle records:</strong>
+                period start dates, end dates and related cycle information.
+            </li>
+
+            <li>
+                <strong>Symptom records:</strong>
+                symptoms, mood notes and other information you choose to record.
+            </li>
+
+            <li>
+                <strong>Profile information:</strong>
+                details you choose to provide through your profile.
+            </li>
+
+            <li>
+                <strong>Technical information:</strong>
+                limited information generated by your browser or hosting
+                environment, depending on the application's configuration.
+            </li>
+        </ul>
+    </section>
+
+    <section class="policy-card">
+        <h3>3. How Information May Be Used</h3>
+
+        <p>Information may be used to support application features such as:</p>
+
+        <ul>
+            <li>Creating and managing user accounts.</li>
+            <li>Recording and displaying menstrual cycle history.</li>
+            <li>Displaying symptom records entered by users.</li>
+            <li>Providing general wellness information.</li>
+            <li>Showing summaries or charts based on available records.</li>
+            <li>Maintaining application security and troubleshooting errors.</li>
+        </ul>
+
+        <div class="highlight">
+            <strong>Important:</strong>
+            These are intended uses. The application only performs the
+            functions that have actually been implemented in its code.
+        </div>
+    </section>
+
+    <section class="policy-card">
+        <h3>4. Menstrual and Wellness Data</h3>
+
+        <p>
+            Menstrual cycle and symptom information can be sensitive personal
+            information. Please enter only information you are comfortable
+            recording in the application.
+        </p>
+
+        <p>
+            Access controls, secure storage, appropriate permissions and
+            protected connections should be configured before using real
+            personal health information.
+        </p>
+    </section>
+
+    <section class="policy-card">
+        <h3>5. Data Storage and Security</h3>
+
+        <p>
+            Information may be stored in a database or other storage system
+            configured by the application. The exact storage method depends
+            on the project's implementation.
+        </p>
+
+        <p>
+            Reasonable technical safeguards should be used to help protect
+            information against unauthorised access, loss or misuse.
+            However, no internet-connected system can guarantee absolute
+            security.
+        </p>
+
+        <ul>
+            <li>Use strong, unique passwords.</li>
+            <li>Do not share your password with others.</li>
+            <li>Keep application dependencies and security settings updated.</li>
+            <li>Do not upload real personal information to a public demo without
+                appropriate security and consent.</li>
+        </ul>
+    </section>
+
+    <section class="policy-card">
+        <h3>6. Cookies and Login Sessions</h3>
+
+        <p>
+            The application may use browser cookies or session mechanisms
+            to support login and maintain user sessions.
+        </p>
+
+        <p>
+            The actual cookies used depend on the Flask configuration and
+            any additional services integrated into the project.
+        </p>
+    </section>
+
+    <section class="policy-card">
+        <h3>7. Sharing of Information</h3>
+
+        <p>
+             Lunavelle should not share personal information with third
+            parties unless the sharing is necessary for a disclosed service,
+            authorised by the user, required by law or otherwise permitted
+            under applicable law.
+        </p>
+
+        <p>
+            Whether information is shared with hosting providers, analytics
+            services or other third parties depends on the services actually
+            connected to the application.
+        </p>
+    </section>
+
+    <section class="policy-card">
+        <h3>8. Data Retention and Deletion</h3>
+
+        <p>
+            Information may remain stored for as long as needed to provide
+            the application's features or meet applicable requirements.
+            The exact retention period depends on the implemented storage
+            and deletion procedures.
+        </p>
+
+        <p>
+            If you want information deleted, use an available account or
+            deletion feature, if implemented, or contact the application
+            administrator. Do not assume that uninstalling the application
+            automatically deletes server-side records.
+        </p>
+    </section>
+
+    <section class="policy-card">
+        <h3>9. Your Choices</h3>
+
+        <p>Depending on applicable law and the application's capabilities, you
+           may be able to:</p>
+
+        <ul>
+            <li>Review information you have entered.</li>
+            <li>Correct inaccurate account or tracking information.</li>
+            <li>Request deletion of your personal information.</li>
+            <li>Ask questions about how your information is handled.</li>
+        </ul>
+
+        <p>
+            These options depend on the features available in the application
+            and the laws that apply to your situation.
+        </p>
+    </section>
+
+    <section class="policy-card">
+        <h3>10. Children's Privacy</h3>
+
+        <p>
+            The application should be used in accordance with applicable
+            age requirements and privacy laws. If you believe that a child
+            has provided personal information inappropriately, contact the
+            application administrator to discuss the available options.
+        </p>
+    </section>
+
+    <section class="policy-card">
+        <h3>11. Changes to This Policy</h3>
+
+        <p>
+            This policy may be updated when application features, data
+            practices or legal requirements change. The latest version
+            should be published on this page with an updated revision date.
+        </p>
+    </section>
+
+    <section class="policy-card">
+        <h3>12. Medical Disclaimer</h3>
+
+        <p>
+            Lunavelle provides menstrual tracking and general wellness
+            information. It is not a substitute for a qualified healthcare
+            professional, medical examination or diagnosis.
+        </p>
+
+        <p>
+            Calendar predictions and cycle estimates are not guaranteed to
+            be accurate and should not be relied upon as contraception or
+            as confirmation of pregnancy or ovulation.
+        </p>
+    </section>
+
+    <section class="contact-card">
+        <h3>💌 Questions About Privacy?</h3>
+
+        <p>
+            If you have a question about this policy, contact the person
+            or organisation responsible for managing your Lunavelle
+            application.
+        </p>
+
+        <a href="{{ url_for('home') }}">Back to Home</a>
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 Lunavelle. All rights reserved.</p>
+    <div class="footer-links">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+        <a href="{{ url_for('about') }}">About Us</a>
+        <a href="{{ url_for('auth.login') }}">Login</a>
+    </div>
+</footer>
+
+</body>
+</html>
+

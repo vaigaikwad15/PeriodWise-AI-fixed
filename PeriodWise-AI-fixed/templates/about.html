@@ -1,0 +1,1022 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About Us | PeriodWise AI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink: #e65b91;
+            --purple: #a76acb;
+            --dark: #58395e;
+            --muted: #806b85;
+            --light-pink: #fff0f6;
+            --light-purple: #f3eaff;
+            --white: #ffffff;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: var(--dark);
+            background: linear-gradient(
+                135deg,
+                #fff0f6,
+                #f3eaff,
+                #ffeaf3
+            );
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: min(1150px, 92%);
+            margin: auto;
+        }
+
+        /* Navigation */
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            padding: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 23px;
+            font-weight: 800;
+            color: var(--dark);
+        }
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            background: linear-gradient(
+                135deg,
+                #ffd8e8,
+                #e7d7ff
+            );
+            border-radius: 16px;
+            font-size: 27px;
+        }
+
+        .about-logo-img {
+    width: 160px;
+    height: 75px;
+    object-fit: contain;
+    display: block;
+}
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            padding: 11px 15px;
+            border-radius: 12px;
+            font-weight: 650;
+            transition: 0.25s;
+        }
+
+        .nav-links a:hover {
+            background: #ffffffc9;
+            color: var(--pink);
+            transform: translateY(-2px);
+        }
+
+        .btn {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            border: none;
+            border-radius: 14px;
+            padding: 13px 20px;
+            background: linear-gradient(
+                100deg,
+                var(--pink),
+                var(--purple)
+            );
+            color: white;
+            font-size: 14px;
+            font-weight: 750;
+            cursor: pointer;
+            box-shadow: 0 8px 20px #b65da426;
+            transition: 0.25s;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px #b65da44a;
+        }
+
+        .btn-light {
+            background: white;
+            color: #a04e91;
+            border: 1px solid #f4ddeb;
+        }
+
+        /* Hero section */
+
+        .hero {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 35px;
+            margin-top: 28px;
+            padding: 48px;
+            border: 1px solid white;
+            border-radius: 32px;
+            background: #ffffffdc;
+            box-shadow: 0 18px 50px #88517b17;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 9px 14px;
+            border-radius: 30px;
+            background: #ffe5f0;
+            color: #a04e91;
+            font-size: 13px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: clamp(34px, 5vw, 55px);
+            line-height: 1.15;
+            margin-bottom: 20px;
+            letter-spacing: -1.4px;
+        }
+
+        .gradient-text {
+            background: linear-gradient(
+                100deg,
+                #e65b91,
+                #9d65c6
+            );
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .hero-description {
+            max-width: 540px;
+            font-size: 16px;
+            color: var(--muted);
+            line-height: 1.9;
+            margin-bottom: 26px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 13px;
+            flex-wrap: wrap;
+        }
+
+        /* Cartoon illustration */
+
+        .cartoon-area {
+            min-height: 340px;
+            display: grid;
+            place-items: center;
+            position: relative;
+        }
+
+        .cartoon-circle {
+            width: 285px;
+            height: 285px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            position: relative;
+            background: linear-gradient(
+                135deg,
+                #ffe0ed,
+                #e8dcff
+            );
+            box-shadow:
+                0 0 0 16px #fff0f780,
+                0 20px 45px #a76acb20;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .cartoon-flower {
+            width: 150px;
+            height: 150px;
+            position: relative;
+        }
+
+        .petal {
+            width: 58px;
+            height: 72px;
+            position: absolute;
+            left: 46px;
+            top: 4px;
+            border-radius: 50% 50% 45% 45%;
+            background: linear-gradient(
+                135deg,
+                #ff9ec5,
+                #e65b91
+            );
+            transform-origin: 29px 71px;
+            box-shadow: inset -4px -5px 10px #bd478226;
+        }
+
+        .petal:nth-child(1) {
+            transform: rotate(0deg);
+        }
+
+        .petal:nth-child(2) {
+            transform: rotate(60deg);
+        }
+
+        .petal:nth-child(3) {
+            transform: rotate(120deg);
+        }
+
+        .petal:nth-child(4) {
+            transform: rotate(180deg);
+        }
+
+        .petal:nth-child(5) {
+            transform: rotate(240deg);
+        }
+
+        .petal:nth-child(6) {
+            transform: rotate(300deg);
+        }
+
+        .flower-face {
+            position: absolute;
+            z-index: 2;
+            left: 39px;
+            top: 39px;
+            width: 72px;
+            height: 72px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border-radius: 50%;
+            background: #ffe99d;
+            border: 3px solid #ffd76a;
+            box-shadow: 0 5px 12px #a76acb25;
+        }
+
+        .eye {
+            width: 7px;
+            height: 10px;
+            background: #58395e;
+            border-radius: 50%;
+        }
+
+        .smile {
+            position: absolute;
+            top: 43px;
+            width: 22px;
+            height: 11px;
+            border-bottom: 3px solid #58395e;
+            border-radius: 0 0 20px 20px;
+        }
+
+        .cheek {
+            position: absolute;
+            width: 11px;
+            height: 7px;
+            border-radius: 50%;
+            background: #f39cbd;
+            top: 43px;
+        }
+
+        .cheek.left {
+            left: 8px;
+        }
+
+        .cheek.right {
+            right: 8px;
+        }
+
+        .floating {
+            position: absolute;
+            font-size: 29px;
+            animation: bob 3s ease-in-out infinite;
+        }
+
+        .heart-one {
+            top: 27px;
+            right: 40px;
+        }
+
+        .star-one {
+            left: 20px;
+            top: 80px;
+            animation-delay: 0.5s;
+        }
+
+        .heart-two {
+            bottom: 42px;
+            left: 25px;
+            animation-delay: 1s;
+        }
+
+        .star-two {
+            right: 20px;
+            bottom: 65px;
+            animation-delay: 0.7s;
+        }
+
+        .speech-bubble {
+            position: absolute;
+            right: 0;
+            bottom: 14px;
+            padding: 13px 18px;
+            border-radius: 18px 18px 4px 18px;
+            background: white;
+            color: #a04e91;
+            font-size: 13px;
+            font-weight: 800;
+            box-shadow: 0 8px 25px #88517b20;
+            transform: rotate(3deg);
+        }
+
+        /* Shared section styles */
+
+        .section {
+            margin-top: 75px;
+        }
+
+        .section-heading {
+            max-width: 720px;
+            margin: 0 auto 32px;
+            text-align: center;
+        }
+
+        .section-heading .small-label {
+            color: #b45391;
+            text-transform: uppercase;
+            font-size: 12px;
+            font-weight: 850;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .section-heading h2 {
+            font-size: clamp(27px, 4vw, 38px);
+            margin-bottom: 14px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+            line-height: 1.9;
+        }
+
+        /* Mission cards */
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .mission-card {
+            padding: 29px;
+            background: #ffffffeb;
+            border: 1px solid white;
+            border-radius: 25px;
+            box-shadow: 0 12px 32px #88517b12;
+            transition: 0.3s;
+        }
+
+        .mission-card:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 20px 38px #88517b20;
+        }
+
+        .mission-icon {
+            width: 65px;
+            height: 65px;
+            display: grid;
+            place-items: center;
+            border-radius: 21px;
+            background: linear-gradient(
+                135deg,
+                #ffe0ed,
+                #e9dcff
+            );
+            font-size: 32px;
+            margin-bottom: 22px;
+        }
+
+        .mission-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+            color: #a04e91;
+        }
+
+        .mission-card p {
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--muted);
+        }
+
+        /* Features */
+
+        .features-section {
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            align-items: center;
+            gap: 35px;
+            padding: 38px;
+            margin-top: 75px;
+            background: linear-gradient(
+                135deg,
+                #fff,
+                #fff0f7
+            );
+            border: 1px solid white;
+            border-radius: 30px;
+            box-shadow: 0 15px 40px #88517b12;
+        }
+
+        .features-art {
+            min-height: 250px;
+            display: grid;
+            place-items: center;
+            border-radius: 25px;
+            background: linear-gradient(
+                135deg,
+                #ffe0ed,
+                #e9dcff
+            );
+            position: relative;
+            overflow: hidden;
+        }
+
+        .features-art .big-emoji {
+            font-size: 115px;
+            animation: float 4s ease-in-out infinite;
+            filter: drop-shadow(0 12px 15px #a76acb35);
+        }
+
+        .features-content h2 {
+            font-size: clamp(25px, 3vw, 34px);
+            margin-bottom: 15px;
+        }
+
+        .features-content > p {
+            color: var(--muted);
+            line-height: 1.9;
+            margin-bottom: 23px;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 13px;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 14px;
+            border-radius: 15px;
+            background: white;
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.6;
+        }
+
+        .check {
+            color: #d94d91;
+            font-size: 17px;
+        }
+
+        /* Privacy note */
+
+        .privacy-box {
+            margin-top: 65px;
+            padding: 28px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            border: 1px solid white;
+            border-radius: 24px;
+            background: #ffffffd9;
+            box-shadow: 0 10px 30px #88517b10;
+        }
+
+        .privacy-icon {
+            min-width: 58px;
+            height: 58px;
+            display: grid;
+            place-items: center;
+            border-radius: 18px;
+            background: #f0e5ff;
+            font-size: 29px;
+        }
+
+        .privacy-box h3 {
+            margin-bottom: 9px;
+            color: #a04e91;
+            font-size: 19px;
+        }
+
+        .privacy-box p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.9;
+        }
+
+        /* Final CTA */
+
+        .cta {
+            text-align: center;
+            margin-top: 70px;
+            padding: 50px 25px;
+            border-radius: 30px;
+            background: linear-gradient(
+                120deg,
+                #e65b91,
+                #a76acb
+            );
+            color: white;
+            box-shadow: 0 18px 40px #a76acb35;
+        }
+
+        .cta .cta-emoji {
+            font-size: 42px;
+            margin-bottom: 14px;
+        }
+
+        .cta h2 {
+            font-size: clamp(27px, 4vw, 37px);
+            margin-bottom: 15px;
+        }
+
+        .cta p {
+            max-width: 650px;
+            margin: 0 auto 25px;
+            line-height: 1.9;
+            color: #fff5fc;
+        }
+
+        .cta .btn {
+            background: white;
+            color: #a04e91;
+            box-shadow: none;
+        }
+
+        /* Footer */
+
+        .footer {
+            margin-top: 45px;
+            padding: 25px 10px;
+            text-align: center;
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.9;
+        }
+
+        .footer a {
+            color: #a04e91;
+            font-weight: 750;
+        }
+
+        /* Animations */
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes bob {
+            0%, 100% {
+                transform: translateY(0) rotate(-5deg);
+            }
+
+            50% {
+                transform: translateY(-12px) rotate(5deg);
+            }
+        }
+
+        /* Responsive layout */
+
+        @media (max-width: 900px) {
+            .hero {
+                grid-template-columns: 1fr;
+                padding: 35px;
+            }
+
+            .cartoon-area {
+                min-height: 310px;
+            }
+
+            .mission-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .features-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav-links {
+                width: 100%;
+                gap: 5px;
+            }
+
+            .nav-links a {
+                padding: 10px;
+                font-size: 13px;
+            }
+
+            .hero {
+                padding: 25px 20px;
+                border-radius: 24px;
+            }
+
+            .hero h1 {
+                letter-spacing: -0.5px;
+            }
+
+            .cartoon-circle {
+                width: 225px;
+                height: 225px;
+            }
+
+            .cartoon-flower {
+                transform: scale(0.82);
+            }
+
+            .cartoon-area {
+                min-height: 280px;
+            }
+
+            .speech-bubble {
+                right: 0;
+                bottom: 0;
+            }
+
+            .mission-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features-section {
+                padding: 22px;
+            }
+
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+
+            .privacy-box {
+                padding: 21px;
+                flex-direction: column;
+            }
+
+            .section {
+                margin-top: 55px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                scroll-behavior: auto !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <!-- Navigation -->
+        <nav class="navbar">
+            <a class="logo" href="{{ url_for('home') }}">
+    <img
+        src="{{ url_for('static', filename='image/logo.png') }}"
+        alt="Lunavelle Logo"
+        class="about-logo-img"
+    >
+</a>
+
+            <div class="nav-links">
+                <a href="{{ url_for('home') }}">Home</a>
+                <a href="{{ url_for('about') }}">About</a>
+                <a href="{{ url_for('auth.login') }}">Login</a>
+                <a class="btn" href="{{ url_for('auth.register') }}">
+                    Get Started ✨
+                </a>
+            </div>
+        </nav>
+
+        <!-- Hero -->
+        <section class="hero">
+
+            <div class="hero-content">
+
+                <span class="eyebrow">
+                    🌸 ABOUT Lunavelle AI
+                </span>
+
+                <h1>
+                    Your cycle.<br>
+                    Your wellness.<br>
+                    <span class="gradient-text">
+                        Your journey.
+                    </span>
+                </h1>
+
+                <p class="hero-description">
+                    Lunavelle AI is a menstrual cycle and wellness
+                    tracking project designed to help users record
+                    period dates, understand symptom patterns, explore
+                    cycle history and discover general wellness tips
+                    in one friendly digital space.
+                </p>
+
+                <div class="hero-buttons">
+                    <a class="btn" href="{{ url_for('auth.register') }}">
+                        🌷 Start Your Journey
+                    </a>
+
+                    <a class="btn btn-light"
+                       href="{{ url_for('auth.login') }}">
+                        Login to Your Account →
+                    </a>
+                </div>
+
+            </div>
+
+            <!-- CSS cartoon flower -->
+            <div class="cartoon-area">
+
+                <span class="floating heart-one">💗</span>
+                <span class="floating star-one">✨</span>
+                <span class="floating heart-two">💕</span>
+                <span class="floating star-two">⭐</span>
+
+                <div class="cartoon-circle">
+
+                    <div class="cartoon-flower">
+
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+                        <div class="petal"></div>
+
+                        <div class="flower-face">
+                            <span class="eye"></span>
+                            <span class="eye"></span>
+                            <span class="cheek left"></span>
+                            <span class="cheek right"></span>
+                            <span class="smile"></span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="speech-bubble">
+                    Take care of you! 💖
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Mission -->
+        <section class="section">
+
+            <div class="section-heading">
+                <p class="small-label">OUR PURPOSE</p>
+
+                <h2>
+                    Small steps towards
+                    <span class="gradient-text">better awareness</span>
+                </h2>
+
+                <p>
+                    Our goal is to make personal cycle tracking simple,
+                    approachable and easy to understand.
+                </p>
+            </div>
+
+            <div class="mission-grid">
+
+                <article class="mission-card">
+                    <div class="mission-icon">🗓️</div>
+
+                    <h3>Track Your Cycle</h3>
+
+                    <p>
+                        Record period start and end dates and review
+                        the history you have saved. Estimates are
+                        based on available records.
+                    </p>
+                </article>
+
+                <article class="mission-card">
+                    <div class="mission-icon">💗</div>
+
+                    <h3>Understand Symptoms</h3>
+
+                    <p>
+                        Record symptoms and their severity to help
+                        you review your personal patterns over time.
+                    </p>
+                </article>
+
+                <article class="mission-card">
+                    <div class="mission-icon">🌿</div>
+
+                    <h3>Support Wellness</h3>
+
+                    <p>
+                        Explore general self-care suggestions and
+                        helpful reminders to support your wellbeing.
+                    </p>
+                </article>
+
+            </div>
+
+        </section>
+
+        <!-- Features -->
+        <section class="features-section">
+
+            <div class="features-art">
+                <span class="big-emoji">🌸</span>
+            </div>
+
+            <div class="features-content">
+
+                <span class="eyebrow">
+                    ✨ WHAT YOU CAN EXPLORE
+                </span>
+
+                <h2>
+                    Everything in one
+                    <span class="gradient-text">wellness space</span>
+                </h2>
+
+                <p>
+                   Lunavelle AI brings several tracking features
+                    together in a simple interface. Available data
+                    depends on the records you save in your account.
+                </p>
+
+                <div class="feature-list">
+
+                    <div class="feature-item">
+                        <span class="check">✓</span>
+                        <span>Menstrual cycle tracking</span>
+                    </div>
+
+                    <div class="feature-item">
+                        <span class="check">✓</span>
+                        <span>Symptom logging</span>
+                    </div>
+
+                    <div class="feature-item">
+                        <span class="check">✓</span>
+                        <span>Cycle and symptom analytics</span>
+                    </div>
+
+                    <div class="feature-item">
+                        <span class="check">✓</span>
+                        <span>Personal reminders</span>
+                    </div>
+
+                    <div class="feature-item">
+                        <span class="check">✓</span>
+                        <span>Wellness suggestions</span>
+                    </div>
+
+                    <div class="feature-item">
+                        <span class="check">✓</span>
+                        <span>Personal profile</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- Privacy and health note -->
+        <section class="privacy-box">
+
+            <div class="privacy-icon">🔒</div>
+
+            <div>
+                <h3>Your wellbeing matters</h3>
+
+                <p>
+                    Lunavelle AI is intended for personal tracking
+                    and educational wellness information. Keep your
+                    account credentials private and use the application
+                    on a trusted device. The project does not replace
+                    professional medical advice. Cycle estimates are
+                    not guaranteed and must not be used as contraception
+                    advice or as a medical diagnosis.
+                </p>
+            </div>
+
+        </section>
+
+        <!-- Call to action -->
+        <section class="cta">
+
+            <div class="cta-emoji">🌷💗🌷</div>
+
+            <h2>Ready to begin your wellness journey?</h2>
+
+            <p>
+                Start recording your cycle, keep track of symptoms
+                and explore your saved information in Lunavelle AI.
+            </p>
+
+            <a class="btn" href="{{ url_for('auth.register') }}">
+                Create Your Account →
+            </a>
+
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+
+            <p>
+                Made with 🌷 for your wellbeing
+            </p>
+
+            <p>
+                © Lunavelle AI · Cycle tracking and wellness awareness
+            </p>
+
+            <p>
+                <a href="{{ url_for('home') }}">Home</a>
+                &nbsp; · &nbsp;
+                <a href="{{ url_for('auth.login') }}">Login</a>
+            </p>
+
+        </footer>
+
+    </div>
+
+</body>
+</html>
+

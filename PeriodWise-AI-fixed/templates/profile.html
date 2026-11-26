@@ -1,0 +1,551 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lunavelle | Reminders</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #fff0f6, #f3e8ff);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #e75480, #9370db);
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 27px;
+        }
+        .brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.reminders-logo {
+    width: 150px;
+    height: 60px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+}.brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.reminders-logo {
+    width: 150px;
+    height: 60px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+}
+
+        header p {
+            margin-top: 5px;
+            font-size: 13px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 9px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 9px 12px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.18);
+            font-size: 13px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 35px auto;
+        }
+
+        .hero {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(100, 50, 100, 0.08);
+        }
+
+        .hero h2 {
+            color: #c43d7a;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .hero p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 0.8fr 1.5fr;
+            gap: 23px;
+            align-items: start;
+        }
+
+        .profile-card,
+        .form-card,
+        .links-card {
+            background: white;
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: 0 5px 20px rgba(100, 50, 100, 0.08);
+            border: 1px solid #f7d8e7;
+        }
+
+        .profile-card {
+            text-align: center;
+        }
+
+        .avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            margin: 0 auto 18px;
+            background: linear-gradient(135deg, #f9b4d0, #d9c1ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 52px;
+        }
+
+        .profile-card h3 {
+            color: #c43d7a;
+            font-size: 22px;
+            margin-bottom: 8px;
+            overflow-wrap: anywhere;
+        }
+
+        .profile-card .subtitle {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 20px;
+            overflow-wrap: anywhere;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #fff0f6;
+            color: #b83270;
+            padding: 8px 13px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .form-card h3,
+        .links-card h3 {
+            color: #c43d7a;
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #e6c6d8;
+            border-radius: 9px;
+            background: #fffafd;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        input:focus {
+            outline: 2px solid #e75480;
+            border-color: transparent;
+        }
+
+        .btn {
+            display: inline-block;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            background: linear-gradient(135deg, #e75480, #a45bd1);
+            color: white;
+            padding: 12px 20px;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            opacity: 0.88;
+        }
+
+        .message {
+            padding: 13px 16px;
+            margin-bottom: 20px;
+            border-radius: 9px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .message.success {
+            background: #e8f8ee;
+            color: #216e39;
+        }
+
+        .message.error {
+            background: #ffe9ed;
+            color: #a32240;
+        }
+
+        .message.info {
+            background: #f0eaff;
+            color: #6241a5;
+        }
+
+        .links-card {
+            margin-top: 24px;
+        }
+
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 13px;
+            margin-top: 20px;
+        }
+
+        .quick-link {
+            padding: 17px;
+            background: #fff5fa;
+            border: 1px solid #f7d8e7;
+            border-radius: 12px;
+            text-decoration: none;
+            color: #b83270;
+            font-weight: bold;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .quick-link span {
+            display: block;
+            font-size: 27px;
+            margin-bottom: 8px;
+        }
+
+        .quick-link:hover {
+            background: #fce4ef;
+        }
+
+        .privacy-note {
+            margin-top: 20px;
+            padding: 17px;
+            background: #fff5fa;
+            border-left: 4px solid #e75480;
+            border-radius: 9px;
+            color: #666;
+            font-size: 13px;
+            line-height: 1.8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            margin-top: 35px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        footer a {
+            color: #b83270;
+            text-decoration: none;
+            margin: 0 6px;
+        }
+
+        @media (max-width: 800px) {
+            .profile-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .quick-links {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 500px) {
+            header {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 23px;
+            }
+
+            .reminders-logo {
+    width: 115px;
+    height: 48px;
+}
+
+.brand {
+    gap: 10px;
+}
+
+            .container {
+                width: 92%;
+                margin-top: 22px;
+            }
+
+            .profile-card,
+            .form-card,
+            .links-card,
+            .hero {
+                padding: 22px;
+            }
+
+            .quick-links {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div>
+        <div class="brand">
+    <img
+        src="{{ url_for('static', filename='image/logo.png') }}"
+        alt="Lunavelle Logo"
+        class="reminders-logo"
+    >
+    <h1>Lunavelle</h1>
+</div>
+    </div>
+
+    <nav>
+        <a href="{{ url_for('dashboard') }}">🏠 Dashboard</a>
+        <a href="{{ url_for('cycle.cycle_page') }}">🌷 Cycle</a>
+        <a href="{{ url_for('calendar') }}">🗓️ Calendar</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <h2>👤 My Profile</h2>
+
+        <p>
+            Manage your account information and access your Lunavelle AI
+            features from one place.
+        </p>
+    </section>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="message
+                    {% if category == 'success' %}success
+                    {% elif category == 'error' %}error
+                    {% else %}info{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <section class="profile-layout">
+
+        <!-- Profile Summary -->
+        <article class="profile-card">
+
+            <div class="avatar">👩🏻</div>
+
+            <h3>
+                {{ user_name|default('Lunavelle User', true) }}
+            </h3>
+
+            <p class="subtitle">
+                {{ user_email|default('Email not available', true) }}
+            </p>
+
+            <span class="badge">🌸Lunavelle Member</span>
+
+            <div class="privacy-note">
+                <strong>🔒 Your Privacy</strong>
+                <p>
+                    Only enter information you are comfortable storing.
+                    Review the Privacy Policy to understand the application's
+                    intended data practices.
+                </p>
+
+                <a href="{{ url_for('privacy') }}"
+                   style="color:#b83270;">
+                    Read Privacy Policy →
+                </a>
+            </div>
+
+        </article>
+
+        <!-- Edit Profile Form -->
+        <section class="form-card">
+
+            <h3>✏️ Edit Profile</h3>
+
+            <p class="description">
+                Update your profile details below. Changes are saved only
+                if your Flask backend implements the profile update action.
+            </p>
+
+            <form action="{{ url_for('profile.profile_page') }}"
+                  method="POST">
+
+                <div class="form-group">
+                    <label for="user_name">Full Name</label>
+
+                    <input
+                        type="text"
+                        id="user_name"
+                        name="user_name"
+                        value="{{ user_name|default('', true) }}"
+                        placeholder="Enter your name"
+                        maxlength="100"
+                        autocomplete="name"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="user_email">Email Address</label>
+
+                    <input
+                        type="email"
+                        id="user_email"
+                        name="user_email"
+                        value="{{ user_email|default('', true) }}"
+                        placeholder="Enter your email"
+                        autocomplete="email"
+                    >
+                </div>
+
+                <button type="submit" class="btn">
+                    💾 Save Profile
+                </button>
+
+            </form>
+
+        </section>
+
+    </section>
+
+    <!-- Quick Navigation -->
+    <section class="links-card">
+
+        <h3>✨ Quick Access</h3>
+
+        <p class="description">
+            Quickly open other PeriodWise AI features.
+        </p>
+
+        <div class="quick-links">
+
+            <a class="quick-link"
+               href="{{ url_for('dashboard') }}">
+                <span>🏠</span>
+                Dashboard
+            </a>
+
+            <a class="quick-link"
+               href="{{ url_for('cycle.cycle_page') }}">
+                <span>🌷</span>
+                Cycle Tracker
+            </a>
+
+            <a class="quick-link"
+               href="{{ url_for('calendar') }}">
+                <span>🗓️</span>
+                Period Calendar
+            </a>
+
+            <a class="quick-link"
+               href="{{ url_for('analytics.analytics_page') }}">
+                <span>📊</span>
+                Analytics
+            </a>
+
+            <a class="quick-link"
+               href="{{ url_for('insights') }}">
+                <span>✨</span>
+                Health Insights
+            </a>
+
+            <a class="quick-link"
+               href="{{ url_for('privacy') }}">
+                <span>🔒</span>
+                Privacy Policy
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 Lunavelle | Take care of yourself 💗</p>
+
+    <p style="margin-top: 9px;">
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('about') }}">About Us</a>
+        <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+    </p>
+</footer>
+
+</body>
+</html>
+

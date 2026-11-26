@@ -1,0 +1,1712 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login | LunavelleS AI</title>
+
+    <style>
+        /* =========================================
+           RESET
+        ========================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --pink: #e65b91;
+            --pink-light: #ff9fbd;
+            --purple: #a76acb;
+            --dark-purple: #673b75;
+            --text: #563d5c;
+            --muted: #987f9b;
+            --white: #ffffff;
+            --background: #fff0f5;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--text);
+            background: var(--background);
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        /* =========================================
+           BACKGROUND
+        ========================================= */
+
+        .page {
+            min-height: 100vh;
+            position: relative;
+            overflow: hidden;
+
+            display: flex;
+            flex-direction: column;
+
+            background:
+                radial-gradient(
+                    circle at 10% 15%,
+                    rgba(255, 174, 205, 0.55),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(192, 151, 238, 0.35),
+                    transparent 30%
+                ),
+                linear-gradient(
+                    135deg,
+                    #fff2f6,
+                    #fce9f5,
+                    #f4eaff
+                );
+        }
+
+        /* Decorative background circles */
+
+        .blob {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            filter: blur(2px);
+        }
+
+        .blob-one {
+            width: 320px;
+            height: 320px;
+
+            background: rgba(255, 153, 190, 0.20);
+
+            top: -130px;
+            left: -100px;
+        }
+
+        .blob-two {
+            width: 380px;
+            height: 380px;
+
+            background: rgba(175, 125, 225, 0.17);
+
+            right: -150px;
+            bottom: -120px;
+        }
+
+        /* =========================================
+           NAVBAR
+        ========================================= */
+
+        .navbar {
+            width: 92%;
+            max-width: 1400px;
+
+            margin: 20px auto 0;
+            padding: 13px 23px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            position: relative;
+            z-index: 10;
+
+            background: rgba(255, 255, 255, 0.82);
+
+            border: 1px solid rgba(255, 255, 255, 0.9);
+            border-radius: 50px;
+
+            box-shadow:
+                0 10px 35px rgba(119, 67, 112, 0.09);
+
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+
+            color: #793f7d;
+
+            font-size: 24px;
+            font-weight: 800;
+        }
+        .lunavelle-header-logo {
+    width: 130px;
+    height: 78px;
+    object-fit: contain;
+    display: block;
+}
+
+        .logo-icon {
+            width: 43px;
+            height: 43px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 50%;
+
+            background: linear-gradient(
+                135deg,
+                #ff91ad,
+                #b76bd0
+            );
+
+            color: white;
+            font-size: 23px;
+
+            box-shadow:
+                0 6px 17px rgba(188, 95, 160, 0.22);
+                overflow: hidden;
+flex-shrink: 0;
+.logo-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+        }
+
+        .home-link {
+            padding: 11px 21px;
+
+            color: #b54e86;
+            font-size: 14px;
+            font-weight: 700;
+
+            background: #fff0f6;
+            border: 1px solid #f4c6db;
+            border-radius: 30px;
+
+            transition: 0.3s ease;
+        }
+
+        .home-link:hover {
+            color: white;
+
+            background: linear-gradient(
+                135deg,
+                var(--pink),
+                var(--purple)
+            );
+
+            transform: translateY(-2px);
+        }
+
+        /* =========================================
+           MAIN LAYOUT
+        ========================================= */
+
+        .main-container {
+            width: 92%;
+            max-width: 1200px;
+
+            flex: 1;
+
+            margin: 0 auto;
+            padding: 45px 0 55px;
+
+            display: grid;
+
+            grid-template-columns:
+                minmax(0, 1fr)
+                minmax(350px, 430px);
+
+            align-items: center;
+            gap: 75px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        /* =========================================
+           LEFT CARTOON SECTION
+        ========================================= */
+
+        .welcome-section {
+            max-width: 600px;
+            position: relative;
+        }
+
+        .welcome-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+
+            padding: 10px 17px;
+
+            background: rgba(255, 255, 255, 0.78);
+
+            border: 1px solid #f7d5e5;
+            border-radius: 30px;
+
+            color: #bd4f89;
+
+            font-size: 13px;
+            font-weight: 800;
+
+            box-shadow:
+                0 7px 22px rgba(160, 89, 143, 0.08);
+        }
+
+        .welcome-title {
+            margin-top: 23px;
+
+            color: #563558;
+
+            font-size: clamp(38px, 4.3vw, 61px);
+            font-weight: 900;
+            line-height: 1.12;
+            letter-spacing: -1.8px;
+        }
+
+        .welcome-title span {
+            display: block;
+            margin-top: 6px;
+
+            background: linear-gradient(
+                90deg,
+                #e45491,
+                #a45bc7
+            );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+
+            color: transparent;
+        }
+
+        .welcome-description {
+            max-width: 490px;
+
+            margin-top: 19px;
+
+            color: #806b85;
+
+            font-size: 16px;
+            line-height: 1.85;
+        }
+
+        /* =========================================
+           CARTOON ILLUSTRATION
+        ========================================= */
+
+        .cartoon-scene {
+            width: 100%;
+            max-width: 430px;
+
+            min-height: 330px;
+
+            margin-top: 22px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+        }
+
+        .cartoon-circle {
+            width: 280px;
+            height: 280px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            position: relative;
+
+            border-radius: 50%;
+
+            background: linear-gradient(
+                145deg,
+                #ffdbe9,
+                #e7d7ff
+            );
+
+            box-shadow:
+                inset 0 0 0 13px rgba(255, 255, 255, 0.30),
+                0 20px 50px rgba(170, 100, 165, 0.13);
+
+            animation: floatMascot 4s ease-in-out infinite;
+        }
+
+        .mascot {
+            width: 175px;
+            height: 195px;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Cartoon flower head */
+
+        .flower-head {
+            width: 125px;
+            height: 125px;
+
+            position: absolute;
+            top: 4px;
+            left: 25px;
+
+            border-radius: 50%;
+
+            background: #fff8fc;
+
+            border: 5px solid #f5b6d2;
+
+            box-shadow:
+                0 8px 0 rgba(202, 117, 170, 0.12);
+        }
+
+        .petal {
+            width: 40px;
+            height: 40px;
+
+            position: absolute;
+
+            background: #ffabc9;
+
+            border: 3px solid #f38fb8;
+            border-radius: 50%;
+        }
+
+        .petal-one {
+            top: -17px;
+            left: 37px;
+        }
+
+        .petal-two {
+            top: 5px;
+            right: -13px;
+        }
+
+        .petal-three {
+            right: -13px;
+            bottom: 7px;
+        }
+
+        .petal-four {
+            left: 37px;
+            bottom: -17px;
+        }
+
+        .petal-five {
+            left: -13px;
+            bottom: 7px;
+        }
+
+        .petal-six {
+            left: -13px;
+            top: 5px;
+        }
+
+        .flower-face {
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            z-index: 2;
+        }
+
+        .face-inner {
+            width: 90px;
+            height: 90px;
+
+            position: relative;
+
+            background: #fff9ed;
+
+            border: 3px solid #f5c8d6;
+            border-radius: 50%;
+        }
+
+        .eye {
+            width: 8px;
+            height: 13px;
+
+            position: absolute;
+            top: 34px;
+
+            background: #59374f;
+
+            border-radius: 50%;
+        }
+
+        .eye-left {
+            left: 23px;
+        }
+
+        .eye-right {
+            right: 23px;
+        }
+
+        .cheek {
+            width: 17px;
+            height: 10px;
+
+            position: absolute;
+            top: 49px;
+
+            background: #ffb0c8;
+
+            border-radius: 50%;
+            opacity: 0.9;
+        }
+
+        .cheek-left {
+            left: 9px;
+        }
+
+        .cheek-right {
+            right: 9px;
+        }
+
+        .smile {
+            width: 17px;
+            height: 10px;
+
+            position: absolute;
+            top: 48px;
+            left: 34px;
+
+            border-bottom: 3px solid #8b4d72;
+
+            border-radius: 0 0 50% 50%;
+        }
+
+        /* Cartoon body */
+
+        .mascot-body {
+            width: 80px;
+            height: 55px;
+
+            position: absolute;
+            bottom: 0;
+            left: 47px;
+
+            background: linear-gradient(
+                135deg,
+                #ff9fc1,
+                #e879aa
+            );
+
+            border: 4px solid #fff2fa;
+
+            border-radius: 45% 45% 30% 30%;
+
+            box-shadow:
+                0 8px 18px rgba(185, 91, 151, 0.16);
+        }
+
+        .body-heart {
+            position: absolute;
+            top: 13px;
+            left: 27px;
+
+            color: white;
+            font-size: 20px;
+        }
+
+        /* Floating decorations */
+
+        .scene-heart {
+            position: absolute;
+
+            color: #e66b9c;
+            font-size: 30px;
+
+            animation: floatSmall 3s ease-in-out infinite;
+        }
+
+        .scene-heart-one {
+            top: 30px;
+            left: 35px;
+        }
+
+        .scene-heart-two {
+            right: 23px;
+            top: 75px;
+
+            font-size: 24px;
+
+            animation-delay: 1s;
+        }
+
+        .scene-star {
+            position: absolute;
+
+            color: #d2a0df;
+            font-size: 25px;
+
+            animation: twinkle 2s ease-in-out infinite;
+        }
+
+        .scene-star-one {
+            top: 65px;
+            right: 55px;
+        }
+
+        .scene-star-two {
+            bottom: 45px;
+            left: 40px;
+
+            animation-delay: 0.8s;
+        }
+
+        .scene-caption {
+            position: absolute;
+            bottom: 3px;
+
+            padding: 12px 21px;
+
+            color: #a54e8d;
+            font-size: 13px;
+            font-weight: 800;
+
+            background: white;
+
+            border: 1px solid #f6d3e6;
+            border-radius: 30px;
+
+            box-shadow:
+                0 8px 25px rgba(164, 91, 151, 0.10);
+        }
+
+        @keyframes floatMascot {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-9px);
+            }
+        }
+
+        @keyframes floatSmall {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-10px) rotate(8deg);
+            }
+        }
+
+        @keyframes twinkle {
+            0%, 100% {
+                opacity: 0.5;
+                transform: scale(0.9);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        /* =========================================
+           LOGIN CARD
+        ========================================= */
+
+        .login-card {
+            width: 100%;
+            max-width: 430px;
+
+            justify-self: end;
+
+            padding: 38px 34px;
+
+            position: relative;
+
+            background: rgba(255, 255, 255, 0.88);
+
+            border: 1px solid rgba(255, 255, 255, 0.95);
+            border-radius: 30px;
+
+            box-shadow:
+                0 25px 70px rgba(130, 75, 125, 0.14),
+                0 5px 18px rgba(130, 75, 125, 0.06);
+
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .card-decoration {
+            width: 65px;
+            height: 65px;
+
+            position: absolute;
+            top: -25px;
+            right: 25px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 29px;
+
+            background: linear-gradient(
+                135deg,
+                #ffb4cd,
+                #d6a5f1
+            );
+
+            border: 5px solid #fff6fb;
+            border-radius: 22px;
+
+            box-shadow:
+                0 8px 22px rgba(182, 100, 171, 0.20);
+
+            transform: rotate(9deg);
+        }
+
+        .card-label {
+            display: inline-block;
+
+            margin-bottom: 11px;
+
+            color: #ce6098;
+            font-size: 12px;
+            font-weight: 800;
+            letter-spacing: 1.6px;
+            text-transform: uppercase;
+        }
+
+        .login-title {
+            color: #563558;
+
+            font-size: 34px;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        .login-subtitle {
+            margin-top: 10px;
+            margin-bottom: 25px;
+
+            color: #96819a;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        /* =========================================
+           FLASH MESSAGES
+        ========================================= */
+
+        .flash-container {
+            margin-bottom: 18px;
+        }
+
+        .flash-message {
+            margin-bottom: 9px;
+            padding: 12px 14px;
+
+            border-radius: 12px;
+
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .flash-message.success {
+            color: #216a4c;
+            background: #e7f8ee;
+            border: 1px solid #b8e9cb;
+        }
+
+        .flash-message.danger,
+        .flash-message.error {
+            color: #a32d55;
+            background: #fff0f4;
+            border: 1px solid #f6c6d6;
+        }
+
+        .flash-message.warning {
+            color: #875f15;
+            background: #fff8e5;
+            border: 1px solid #f3df9e;
+        }
+
+        .flash-message.info {
+            color: #5c4c9a;
+            background: #f3efff;
+            border: 1px solid #d8cdfb;
+        }
+
+        /* =========================================
+           FORM
+        ========================================= */
+
+        .form-group {
+            margin-bottom: 19px;
+        }
+
+        .form-label {
+            display: block;
+
+            margin-bottom: 9px;
+
+            color: #694b70;
+
+            font-size: 13px;
+            font-weight: 800;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            width: 22px;
+
+            position: absolute;
+            top: 50%;
+            left: 15px;
+
+            transform: translateY(-50%);
+
+            font-size: 17px;
+            pointer-events: none;
+        }
+
+        .form-input {
+            width: 100%;
+            height: 53px;
+
+            padding: 0 45px 0 45px;
+
+            color: #553c5b;
+            font-size: 14px;
+
+            background: #fff9fc;
+
+            border: 1.5px solid #f0dce9;
+            border-radius: 15px;
+
+            outline: none;
+
+            transition:
+                border-color 0.25s ease,
+                box-shadow 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .form-input::placeholder {
+            color: #bba7bf;
+        }
+
+        .form-input:focus {
+            background: white;
+
+            border-color: #d779b0;
+
+            box-shadow:
+                0 0 0 4px rgba(224, 119, 177, 0.12);
+        }
+
+        .password-toggle {
+            position: absolute;
+            top: 50%;
+            right: 13px;
+
+            transform: translateY(-50%);
+
+            padding: 5px;
+
+            color: #a568a4;
+            font-size: 12px;
+            font-weight: 800;
+
+            background: transparent;
+            border: none;
+
+            cursor: pointer;
+        }
+
+        .password-toggle:hover {
+            color: #d54d8a;
+        }
+
+        /* =========================================
+           FORM OPTIONS
+        ========================================= */
+
+        .form-options {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            gap: 12px;
+
+            margin: 2px 0 24px;
+        }
+
+        .remember-option {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            color: #88718c;
+            font-size: 12px;
+
+            cursor: pointer;
+        }
+
+        .remember-option input {
+            width: 15px;
+            height: 15px;
+
+            accent-color: #d85896;
+
+            cursor: pointer;
+        }
+
+        .forgot-link {
+            color: #bd5b98;
+            font-size: 12px;
+            font-weight: 800;
+        }
+
+        .forgot-link:hover {
+            color: #8e4cae;
+            text-decoration: underline;
+        }
+
+        /* =========================================
+           LOGIN BUTTON
+        ========================================= */
+
+        .login-button {
+            width: 100%;
+            min-height: 54px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+
+            color: white;
+
+            font-size: 15px;
+            font-weight: 800;
+
+            background: linear-gradient(
+                110deg,
+                #e65b91,
+                #bd68bd,
+                #9d65c8
+            );
+
+            background-size: 200% 100%;
+
+            border: none;
+            border-radius: 16px;
+
+            box-shadow:
+                0 12px 25px rgba(194, 83, 151, 0.25);
+
+            cursor: pointer;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease,
+                background-position 0.35s ease;
+        }
+
+        .login-button:hover {
+            transform: translateY(-3px);
+
+            background-position: 100% 0;
+
+            box-shadow:
+                0 16px 30px rgba(194, 83, 151, 0.32);
+        }
+
+        .login-button:active {
+            transform: translateY(0);
+        }
+
+        .login-button:focus-visible {
+            outline: 3px solid #9c66c9;
+            outline-offset: 4px;
+        }
+
+        /* =========================================
+           DIVIDER
+        ========================================= */
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            margin: 24px 0;
+
+            color: #b39ab6;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+
+            flex: 1;
+            height: 1px;
+
+            background: #f0e2ef;
+        }
+
+        /* =========================================
+           REGISTER LINK
+        ========================================= */
+
+        .register-text {
+            color: #8f7b94;
+
+            font-size: 13px;
+            line-height: 1.7;
+
+            text-align: center;
+        }
+
+        .register-link {
+            color: #cf4f91;
+            font-weight: 900;
+        }
+
+        .register-link:hover {
+            color: #8f4cae;
+            text-decoration: underline;
+        }
+
+        .privacy-note {
+            margin-top: 22px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 7px;
+
+            color: #ad99b1;
+            font-size: 11px;
+            text-align: center;
+        }
+
+        /* =========================================
+           FOOTER
+        ========================================= */
+
+        .footer {
+            padding: 15px 20px 25px;
+
+            color: #a28ba6;
+            font-size: 12px;
+
+            text-align: center;
+
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer span {
+            color: #dc679a;
+        }
+
+        /* =========================================
+           RESPONSIVE DESIGN
+        ========================================= */
+
+        @media (max-width: 1000px) {
+
+            .main-container {
+                grid-template-columns:
+                    minmax(0, 0.9fr)
+                    minmax(340px, 430px);
+
+                gap: 35px;
+            }
+
+            .welcome-title {
+                font-size: 43px;
+            }
+
+            .cartoon-circle {
+                width: 240px;
+                height: 240px;
+            }
+
+            .cartoon-scene {
+                min-height: 290px;
+            }
+        }
+
+        @media (max-width: 780px) {
+
+            .navbar {
+                width: 94%;
+                padding: 11px 15px;
+            }
+
+            .logo {
+                font-size: 20px;
+            }
+
+            .logo-icon {
+                width: 39px;
+                height: 39px;
+                font-size: 20px;
+            }
+
+            .main-container {
+                width: 92%;
+
+                max-width: 500px;
+
+                grid-template-columns: 1fr;
+
+                gap: 24px;
+
+                padding-top: 38px;
+            }
+
+            .welcome-section {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .welcome-title {
+                font-size: 40px;
+            }
+
+            .welcome-description {
+                margin-left: auto;
+                margin-right: auto;
+
+                font-size: 14px;
+            }
+
+            .cartoon-scene {
+                min-height: 270px;
+                margin-top: 8px;
+            }
+
+            .cartoon-circle {
+                width: 225px;
+                height: 225px;
+            }
+
+            .mascot {
+                transform: scale(0.9);
+            }
+
+            .login-card {
+                justify-self: center;
+                max-width: 450px;
+            }
+
+            .footer {
+                padding-top: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+
+            .navbar {
+                margin-top: 12px;
+            }
+
+            .logo {
+                font-size: 17px;
+                gap: 8px;
+            }
+
+            .logo-icon {
+                width: 35px;
+                height: 35px;
+                font-size: 18px;
+            }
+
+            .home-link {
+                padding: 9px 13px;
+                font-size: 12px;
+            }
+
+            .main-container {
+                width: 90%;
+                padding-top: 30px;
+            }
+
+            .welcome-title {
+                font-size: 34px;
+            }
+
+            .welcome-description {
+                font-size: 13px;
+                line-height: 1.7;
+            }
+
+            .cartoon-scene {
+                min-height: 245px;
+            }
+
+            .cartoon-circle {
+                width: 205px;
+                height: 205px;
+            }
+
+            .mascot {
+                transform: scale(0.82);
+            }
+
+            .login-card {
+                padding: 34px 23px;
+                border-radius: 25px;
+            }
+
+            .login-title {
+                font-size: 30px;
+            }
+
+            .login-subtitle {
+                font-size: 13px;
+            }
+
+            .form-input {
+                height: 50px;
+            }
+
+            .form-options {
+                align-items: flex-start;
+            }
+
+            .remember-option,
+            .forgot-link {
+                font-size: 11px;
+            }
+
+            .card-decoration {
+                width: 55px;
+                height: 55px;
+
+                top: -21px;
+                right: 19px;
+
+                font-size: 24px;
+            }
+        }
+
+        /* Reduced motion accessibility */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="page">
+
+    <!-- Background decoration -->
+
+    <div class="blob blob-one"></div>
+    <div class="blob blob-two"></div>
+
+    <!-- =====================================
+         NAVBAR
+    ====================================== -->
+
+    <nav class="navbar">
+
+        <a href="{{ url_for('home') }}" class="logo">
+    <img
+        class="lunavelle-header-logo"
+        src="{{ url_for('static', filename='image/logo.png') }}"
+        alt="Lunavelle Logo"
+    >
+</a>
+
+        <a href="{{ url_for('home') }}"
+           class="home-link">
+
+            ← Back to Home
+
+        </a>
+
+    </nav>
+
+    <!-- =====================================
+         MAIN CONTAINER
+    ====================================== -->
+
+    <main class="main-container">
+
+        <!-- LEFT: CARTOON SECTION -->
+
+        <section class="welcome-section">
+
+            <div class="welcome-badge">
+
+                <span>✨</span>
+
+                <span>Your personal wellness space</span>
+
+            </div>
+
+            <h1 class="welcome-title">
+
+                Welcome
+                <span>Back, Lovely!</span>
+
+            </h1>
+
+            <p class="welcome-description">
+
+                Your cycle journey is waiting for you.
+                Sign in to track your periods, understand
+                your symptoms and discover your personal
+                wellness insights.
+
+            </p>
+
+            <!-- Cartoon illustration -->
+
+            <div class="cartoon-scene">
+
+                <span class="scene-heart scene-heart-one">
+                    ♥
+                </span>
+
+                <span class="scene-heart scene-heart-two">
+                    ♡
+                </span>
+
+                <span class="scene-star scene-star-one">
+                    ✦
+                </span>
+
+                <span class="scene-star scene-star-two">
+                    ✧
+                </span>
+
+                <div class="cartoon-circle">
+
+                    <div class="mascot">
+
+                        <!-- Flower petals -->
+
+                        <div class="flower-head">
+
+                            <div class="petal petal-one"></div>
+                            <div class="petal petal-two"></div>
+                            <div class="petal petal-three"></div>
+                            <div class="petal petal-four"></div>
+                            <div class="petal petal-five"></div>
+                            <div class="petal petal-six"></div>
+
+                            <!-- Cartoon face -->
+
+                            <div class="flower-face">
+
+                                <div class="face-inner">
+
+                                    <div class="eye eye-left"></div>
+                                    <div class="eye eye-right"></div>
+
+                                    <div class="cheek cheek-left"></div>
+                                    <div class="cheek cheek-right"></div>
+
+                                    <div class="smile"></div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                        <!-- Cartoon body -->
+
+                        <div class="mascot-body">
+
+                            <span class="body-heart">♥</span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="scene-caption">
+
+                    You deserve a little self-care 💗
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- RIGHT: LOGIN CARD -->
+
+        <section class="login-card">
+
+            <div class="card-decoration">
+                💌
+            </div>
+
+            <span class="card-label">
+
+                YOUR ACCOUNT
+
+            </span>
+
+            <h2 class="login-title">
+
+                Sign In
+
+            </h2>
+
+            <p class="login-subtitle">
+
+                Welcome back! Enter your details
+                to continue your wellness journey.
+
+            </p>
+
+            <!-- Flask flash messages -->
+
+            <div class="flash-container"
+                 aria-live="polite">
+
+                {% with messages = get_flashed_messages(with_categories=true) %}
+
+                    {% if messages %}
+
+                        {% for category, message in messages %}
+
+                            <div class="flash-message {{ category }}">
+
+                                {{ message }}
+
+                            </div>
+
+                        {% endfor %}
+
+                    {% endif %}
+
+                {% endwith %}
+
+            </div>
+
+            <!-- LOGIN FORM -->
+
+            <form method="POST"
+                  action="{{ url_for('auth.login') }}"
+                  id="loginForm">
+
+                <!-- Email -->
+
+                <div class="form-group">
+
+                    <label for="email"
+                           class="form-label">
+
+                        Email Address
+
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            💌
+                        </span>
+
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            class="form-input"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            maxlength="254"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+                <!-- Password -->
+
+                <div class="form-group">
+
+                    <label for="password"
+                           class="form-label">
+
+                        Password
+
+                    </label>
+
+                    <div class="input-wrapper">
+
+                        <span class="input-icon">
+                            🔒
+                        </span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="form-input"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            id="togglePassword"
+                            aria-label="Show password"
+                            aria-pressed="false"
+                        >
+
+                            Show
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Options -->
+
+                <div class="form-options">
+
+                    <label class="remember-option">
+
+                        <input
+                            type="checkbox"
+                            id="remember"
+                            name="remember"
+                        >
+
+                        <span>Remember me</span>
+
+                    </label>
+
+                    <a href="#"
+                       class="forgot-link"
+                       id="forgotPassword">
+
+                        Forgot password?
+
+                    </a>
+
+                </div>
+
+                <!-- Submit -->
+
+                <button
+                    type="submit"
+                    class="login-button"
+                    id="loginButton"
+                >
+
+                    <span>Sign In to Your Account</span>
+
+                    <span>→</span>
+
+                </button>
+
+            </form>
+
+            <div class="divider">
+
+                OR
+
+            </div>
+
+            <!-- Register -->
+
+            <p class="register-text">
+
+                New to LunavelleS AI?
+
+                <a
+                    href="{{ url_for('auth.register') }}"
+                    class="register-link"
+                >
+
+                    Create an account
+
+                </a>
+
+            </p>
+
+            <div class="privacy-note">
+
+                <span>🔐</span>
+
+                <span>
+                    Your wellness journey deserves care and privacy.
+                </span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+
+    <footer class="footer">
+
+        Made with <span>♥</span> for your wellness journey
+
+        <br><br>
+
+        © 2026 LunavelleS AI
+
+    </footer>
+
+</div>
+
+<!-- =====================================
+     JAVASCRIPT
+====================================== -->
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const togglePassword =
+            document.getElementById("togglePassword");
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const loginButton =
+            document.getElementById("loginButton");
+
+        const forgotPassword =
+            document.getElementById("forgotPassword");
+
+
+        /* Show / hide password */
+
+        togglePassword.addEventListener("click", function () {
+
+            const isPassword =
+                passwordInput.type === "password";
+
+            passwordInput.type =
+                isPassword ? "text" : "password";
+
+            togglePassword.textContent =
+                isPassword ? "Hide" : "Show";
+
+            togglePassword.setAttribute(
+                "aria-label",
+                isPassword ? "Hide password" : "Show password"
+            );
+
+            togglePassword.setAttribute(
+                "aria-pressed",
+                String(isPassword)
+            );
+
+        });
+
+
+        /* Basic client-side form validation */
+
+        loginForm.addEventListener("submit", function (event) {
+
+            if (!loginForm.checkValidity()) {
+
+                event.preventDefault();
+
+                loginForm.reportValidity();
+
+                return;
+            }
+
+            /*
+             * Prevent accidental repeated clicks.
+             * The browser still submits the original form.
+             */
+
+            loginButton.disabled = true;
+
+            loginButton.style.opacity = "0.75";
+
+            loginButton.querySelector("span:first-child")
+                .textContent = "Signing in...";
+
+        });
+
+
+        /*
+         * A real password-reset feature requires a backend route.
+         * Do not show a fake success message.
+         */
+
+        forgotPassword.addEventListener("click", function (event) {
+
+            event.preventDefault();
+
+            alert(
+                "Password reset is not configured yet. " +
+                "Please contact the administrator for help."
+            );
+
+        });
+
+
+        console.log(
+            "PeriodWise AI Login Page loaded successfully."
+        );
+
+    });
+</script>
+
+</body>
+</html>

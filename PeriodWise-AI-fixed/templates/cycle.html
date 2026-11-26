@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Period Tracker | PeriodWise AI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #fff0f6, #f3e8ff);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #e75480, #9370db);
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        header h1 {
+            font-size: 27px;
+        }
+
+        header p {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.18);
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.32);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 35px auto;
+        }
+
+        .hero {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(100, 50, 100, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .hero h2 {
+            color: #c43d7a;
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .info-card {
+            background: white;
+            padding: 23px;
+            border-radius: 16px;
+            box-shadow: 0 5px 18px rgba(100, 50, 100, 0.07);
+        }
+
+        .info-card .icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .info-card h3 {
+            color: #c43d7a;
+            margin-bottom: 10px;
+        }
+
+        .info-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        .form-card {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(100, 50, 100, 0.08);
+            margin-bottom: 25px;
+        }
+
+        .form-card h2 {
+            color: #c43d7a;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            color: #777;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 22px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-weight: bold;
+            margin-bottom: 9px;
+            color: #555;
+        }
+
+        input[type="date"],
+        input[type="number"],
+        textarea {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #e6c6d8;
+            border-radius: 9px;
+            font-size: 15px;
+            font-family: inherit;
+            background: #fffafd;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: 2px solid #e75480;
+            border-color: transparent;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .primary-btn {
+            background: linear-gradient(135deg, #e75480, #9370db);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 14px 24px;
+            font-size: 15px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 22px;
+        }
+
+        .primary-btn:hover {
+            opacity: 0.88;
+        }
+
+        .secondary-btn {
+            display: inline-block;
+            background: #fce4ef;
+            color: #b83270;
+            padding: 11px 17px;
+            border-radius: 9px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .message {
+            padding: 14px 17px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+
+        .message.success {
+            background: #e8f8ee;
+            color: #216e39;
+        }
+
+        .message.error {
+            background: #ffe9ed;
+            color: #a32240;
+        }
+
+        .message.info {
+            background: #f0eaff;
+            color: #6241a5;
+        }
+
+        .history-card {
+            background: white;
+            padding: 28px;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px rgba(100, 50, 100, 0.08);
+            overflow-x: auto;
+        }
+
+        .history-card h2 {
+            color: #c43d7a;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 550px;
+        }
+
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #f1dce7;
+        }
+
+        th {
+            background: #fff0f6;
+            color: #a52d66;
+        }
+
+        td {
+            color: #555;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #777;
+            padding: 25px;
+            line-height: 1.8;
+        }
+
+        footer {
+            text-align: center;
+            color: #777;
+            padding: 25px 15px;
+            margin-top: 35px;
+            font-size: 13px;
+        }
+
+        @media (max-width: 850px) {
+            .cards {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 23px;
+            }
+
+            .container {
+                width: 92%;
+                margin-top: 22px;
+            }
+
+            .cards,
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero,
+            .form-card,
+            .history-card {
+                padding: 22px;
+            }
+
+            .hero h2 {
+                font-size: 24px;
+            }
+
+            .full-width {
+                grid-column: auto;
+            }
+        }
+        .cycle-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.cycle-logo {
+    width: 150px;
+    height: 75px;
+    object-fit: contain;
+    display: block;
+}
+
+.cycle-brand p {
+    margin-top: 5px;
+    font-size: 14px;
+}
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="cycle-brand">
+        <img
+            src="{{ url_for('static', filename='image/logo.png') }}"
+            alt="Lunavelle Logo"
+            class="cycle-logo"
+        >
+        
+    </div>
+
+    <nav>
+        <a class="btn" href="{{ url_for('dashboard') }}">🏠 Dashboard</a>
+        <a class="btn" href="{{ url_for('calendar') }}">🗓️ Calendar</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <h2>🌷 Period Cycle Tracker</h2>
+        <p>
+            Track your menstrual cycle by recording your period dates.
+            Keeping accurate records can help you understand your personal
+            cycle patterns over time.
+        </p>
+    </section>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="message
+                    {% if category == 'success' %}success
+                    {% elif category == 'error' %}error
+                    {% else %}info{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <section class="cards">
+
+        <article class="info-card">
+            <div class="icon">🩸</div>
+            <h3>Period Start</h3>
+            <p>
+                Record the first day of your period to maintain
+                a useful cycle history.
+            </p>
+        </article>
+
+        <article class="info-card">
+            <div class="icon">📅</div>
+            <h3>Period End</h3>
+            <p>
+                Record the last day of your period if you know it.
+                You can leave this field empty if it has not ended.
+            </p>
+        </article>
+
+        <article class="info-card">
+            <div class="icon">💗</div>
+            <h3>Know Your Cycle</h3>
+            <p>
+                Review your saved dates and discuss unusual changes
+                or concerns with a healthcare professional.
+            </p>
+        </article>
+
+    </section>
+
+    <section class="form-card">
+        <h2>➕ Record Your Period</h2>
+
+        <p class="description">
+            Enter your period start date and, if available, the end date.
+            Your dates will be saved only if your Flask backend handles
+            this form submission.
+        </p>
+
+        <form action="{{ url_for('cycle.cycle_page') }}" method="POST">
+
+            <div class="form-grid">
+
+                <div class="form-group">
+                    <label for="start_date">
+                        Period Start Date *
+                    </label>
+
+                    <input
+                        type="date"
+                        id="start_date"
+                        name="period_start_date"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="end_date">
+                        Period End Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="end_date"
+                        name="period_end_date"
+                    >
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="notes">
+                        Notes (Optional)
+                    </label>
+
+                    <textarea
+                        id="notes"
+                        name="notes"
+                        placeholder="Add any notes you want to remember..."
+                    ></textarea>
+                </div>
+
+            </div>
+
+            <button type="submit" class="primary-btn">
+                💾 Save Period Record
+            </button>
+
+        </form>
+
+        <a href="{{ url_for('calendar') }}" class="secondary-btn">
+            🗓️ View Period Calendar
+        </a>
+    </section>
+
+    <section class="history-card">
+        <h2>📋 Period History</h2>
+
+        {% set records = cycles|default([], true) %}
+
+        {% if records %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Period Start</th>
+                        <th>Period End</th>
+                        <th>Cycle Length</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for record in records %}
+                        <tr>
+                            <td>
+                                {{ record.period_start_date|default('—', true) }}
+                            </td>
+
+                            <td>
+                                {{ record.period_end_date|default('Not recorded', true) }}
+                            </td>
+
+                            <td>
+                                {% if record.cycle_length is defined and record.cycle_length %}
+                                    {{ record.cycle_length }} days
+                                {% else %}
+                                    —
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <div class="empty-state">
+                <div style="font-size: 38px;">🌸</div>
+                <p><strong>No period records to display yet.</strong></p>
+                <p>
+                    Once your backend saves and supplies cycle records,
+                    they can appear in this section.
+                </p>
+            </div>
+        {% endif %}
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 Lunavelle AI | Take care of yourself 💗</p>
+    <p style="margin-top: 8px;">
+        This tracker is for personal record-keeping and is not a medical diagnosis.
+    </p>
+</footer>
+
+<script>
+    const startDateInput = document.getElementById("start_date");
+    const endDateInput = document.getElementById("end_date");
+
+    startDateInput.addEventListener("change", function () {
+        endDateInput.min = startDateInput.value;
+
+        if (endDateInput.value && endDateInput.value < startDateInput.value) {
+            endDateInput.value = "";
+        }
+    });
+
+    endDateInput.addEventListener("change", function () {
+        if (
+            startDateInput.value &&
+            endDateInput.value &&
+            endDateInput.value < startDateInput.value
+        ) {
+            alert("Period end date cannot be before the start date.");
+            endDateInput.value = "";
+        }
+    });
+</script>
+
+</body>
+</html>
+```

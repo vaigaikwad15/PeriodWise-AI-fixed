@@ -1,0 +1,1468 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Symptom Tracker | PeriodWise AI</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #fff0f6, #f3e8ff);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #e75480, #9370db);
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .symptoms-brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.symptoms-logo {
+    width: 140px;
+    height: 70px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+}
+
+        header h1 {
+            font-size: 27px;
+        }
+
+        header p {
+            font-size: 13px;
+            margin-top: 5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 9px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 9px 12px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.18);
+            font-size: 13px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 35px auto;
+        }
+
+        .hero {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(100, 50, 100, 0.08);
+        }
+
+        .hero h2 {
+            color: #c43d7a;
+            font-size: 28px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .summary-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+            margin-bottom: 25px;
+        }
+
+        .summary-card {
+            background: white;
+            padding: 22px;
+            border-radius: 16px;
+            box-shadow: 0 4px 15px rgba(100, 50, 100, 0.06);
+        }
+
+        .summary-card .icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .summary-card h3 {
+            color: #c43d7a;
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .summary-card p {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 23px;
+            align-items: start;
+        }
+
+        .panel {
+            background: white;
+            border-radius: 18px;
+            padding: 28px;
+            box-shadow: 0 5px 20px rgba(100, 50, 100, 0.07);
+            border: 1px solid #f7d8e7;
+        }
+
+        .panel h3 {
+            color: #c43d7a;
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
+
+        .description {
+            color: #777;
+            font-size: 14px;
+            line-height: 1.7;
+            margin-bottom: 22px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            color: #555;
+            font-weight: bold;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e6c6d8;
+            border-radius: 9px;
+            background: #fffafd;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: 2px solid #e75480;
+            border-color: transparent;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 19px;
+            border: none;
+            border-radius: 9px;
+            background: linear-gradient(135deg, #e75480, #a45bd1);
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            opacity: 0.88;
+        }
+
+        .symptom-item {
+            padding: 17px;
+            border: 1px solid #f3d8e7;
+            border-radius: 12px;
+            margin-bottom: 14px;
+            background: #fffafd;
+        }
+
+        .symptom-item h4 {
+            color: #b83270;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .symptom-item p {
+            color: #666;
+            font-size: 13px;
+            line-height: 1.7;
+            overflow-wrap: anywhere;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #fce4ef;
+            color: #a52d66;
+            padding: 5px 9px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: bold;
+            margin-bottom: 9px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 30px 15px;
+            color: #777;
+            line-height: 1.8;
+        }
+
+        .empty-state .icon {
+            font-size: 42px;
+            margin-bottom: 10px;
+        }
+
+        .message {
+            padding: 13px 16px;
+            margin-bottom: 20px;
+            border-radius: 9px;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .message.success {
+            background: #e8f8ee;
+            color: #216e39;
+        }
+
+        .message.error {
+            background: #ffe9ed;
+            color: #a32240;
+        }
+
+        .message.info {
+            background: #f0eaff;
+            color: #6241a5;
+        }
+
+        .tips-panel {
+            margin-top: 25px;
+            background: linear-gradient(135deg, #e75480, #9370db);
+            color: white;
+            padding: 27px;
+            border-radius: 18px;
+        }
+
+        .tips-panel h3 {
+            font-size: 21px;
+            margin-bottom: 12px;
+        }
+
+        .tips-panel ul {
+            padding-left: 22px;
+        }
+
+        .tips-panel li {
+            margin-bottom: 9px;
+            line-height: 1.7;
+        }
+
+        .quick-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 25px;
+        }
+
+        .quick-links a {
+            text-decoration: none;
+            background: white;
+            color: #b83270;
+            border: 1px solid #f3d8e7;
+            border-radius: 9px;
+            padding: 11px 15px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        .quick-links a:hover {
+            background: #fff0f6;
+        }
+
+        footer {
+            text-align: center;
+            color: #777;
+            padding: 25px 15px;
+            margin-top: 35px;
+            font-size: 13px;
+        }
+
+        footer a {
+            color: #b83270;
+            text-decoration: none;
+            margin: 0 6px;
+        }
+
+        @media (max-width: 800px) {
+            .summary-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 500px) {
+            header {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 23px;
+            }
+
+            .container {
+                width: 92%;
+                margin-top: 22px;
+            }
+
+            .summary-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .panel,
+            .hero {
+                padding: 22px;
+            }
+        }
+
+        .symptoms-brand {
+    flex-wrap: wrap;
+}
+
+.symptoms-logo {
+    width: 115px;
+    height: 60px;
+}
+
+/* Log Your Symptoms - Professional Design */
+
+.log-symptoms-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #b94f89;
+    font-size: 25px;
+    font-weight: 700;
+    margin-bottom: 12px;
+}
+
+.log-title-icon {
+    width: 42px;
+    height: 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #ffe6f1, #f0e7ff);
+    color: #bd5b9c;
+    font-size: 25px;
+    flex-shrink: 0;
+}
+
+.log-symptoms-description {
+    color: #88758e;
+    font-size: 14px;
+    line-height: 1.8;
+    max-width: 450px;
+    margin-bottom: 25px;
+}
+
+/* Form section spacing */
+.content-grid > .panel:first-child {
+    padding: 30px;
+    border-radius: 22px;
+    border: 1px solid #f2dce9;
+    background: #ffffff;
+}
+
+/* Symptom rating heading */
+.content-grid > .panel:first-child form > p strong {
+    color: #a94c84;
+    font-size: 16px;
+}
+
+/* Clean form fields */
+.content-grid > .panel:first-child input {
+    background: #fffafd;
+    border: 1px solid #ead7e5;
+    border-radius: 11px;
+    padding: 13px 15px;
+}
+
+/* Save button */
+.content-grid > .panel:first-child .btn {
+    width: 100%;
+    margin-top: 10px;
+    padding: 15px;
+    border-radius: 13px;
+    font-size: 15px;
+    background: linear-gradient(110deg, #d85d9b, #a982d4);
+    box-shadow: 0 6px 16px rgba(190, 85, 150, 0.15);
+}
+
+.content-grid > .panel:first-child .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 9px 20px rgba(190, 85, 150, 0.2);
+}
+
+/* Mobile heading */
+@media (max-width: 500px) {
+    .log-symptoms-title {
+        font-size: 22px;
+    }
+
+    .content-grid > .panel:first-child {
+        padding: 22px;
+    }
+}
+
+
+
+/* ===== Professional Symptom Rating Section ===== */
+
+.content-grid > .panel:first-child form > p {
+    margin-bottom: 8px;
+    line-height: 1.7;
+}
+
+/* Rate your symptoms heading */
+.content-grid > .panel:first-child form > p strong {
+    display: block;
+    color: #a64c83;
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+/* 0-10 explanation */
+.content-grid > .panel:first-child form > p + p {
+    color: #8a7a90;
+    font-size: 13px;
+    background: #fff5fa;
+    border: 1px solid #f5e4ef;
+    border-radius: 10px;
+    padding: 10px 13px;
+    margin-bottom: 20px;
+}
+
+/* Symptom labels */
+.content-grid > .panel:first-child form label {
+    color: #59465f;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 9px;
+}
+
+/* Rating input fields */
+.content-grid > .panel:first-child form input[type="number"] {
+    height: 52px;
+    padding: 12px 16px;
+    background: #fffafd;
+    border: 1px solid #ead6e5;
+    border-radius: 13px;
+    font-size: 15px;
+    color: #59465f;
+    transition: all 0.2s ease;
+}
+
+/* Focus effect */
+.content-grid > .panel:first-child form input[type="number"]:focus {
+    outline: none;
+    border-color: #d967a2;
+    background: #ffffff;
+    box-shadow: 0 0 0 4px rgba(217, 103, 162, 0.12);
+}
+
+/* Space between symptom fields */
+.content-grid > .panel:first-child form .form-group {
+    margin-bottom: 21px;
+}
+
+/* ===== Attractive Save Button ===== */
+
+.content-grid > .panel:first-child form button[type="submit"] {
+    width: 100%;
+    min-height: 56px;
+    margin-top: 14px;
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(110deg, #d95799, #a779d2);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+    box-shadow: 0 8px 20px rgba(196, 80, 145, 0.18);
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* Button hover */
+.content-grid > .panel:first-child form button[type="submit"]:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 25px rgba(196, 80, 145, 0.25);
+}
+
+/* Button press */
+.content-grid > .panel:first-child form button[type="submit"]:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 12px rgba(196, 80, 145, 0.15);
+}
+
+/* Mobile */
+@media (max-width: 500px) {
+    .content-grid > .panel:first-child form button[type="submit"] {
+        min-height: 52px;
+        font-size: 15px;
+    }
+
+    .content-grid > .panel:first-child form input[type="number"] {
+        height: 49px;
+    }
+}
+
+/* ===================================
+   LUNAVELLE AI SYMPTOM INSIGHTS
+=================================== */
+
+.ai-analysis-panel {
+    margin-top: 30px !important;
+    padding: 30px !important;
+    background: #ffffff !important;
+    border: 1px solid #f0dce9 !important;
+    border-radius: 24px !important;
+    box-shadow: 0 8px 25px rgba(160, 100, 150, 0.06) !important;
+}
+
+
+/* AI Header */
+
+.ai-analysis-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-bottom: 24px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #f2e6ef;
+}
+
+.ai-header-icon {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #ffe8f3, #f0e8ff);
+    font-size: 25px;
+}
+
+.ai-header-content {
+    flex: 1;
+}
+
+.ai-header-content h3 {
+    color: #b94f89 !important;
+    font-size: 24px !important;
+    margin: 0 0 6px !important;
+}
+
+.ai-header-content p {
+    color: #88758e !important;
+    font-size: 13px !important;
+    line-height: 1.7 !important;
+    margin: 0 !important;
+}
+
+.ai-header-badge {
+    background: #fceaf4;
+    color: #b54f89;
+    border-radius: 20px;
+    padding: 8px 13px;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+
+/* AI Content Layout */
+
+.ai-insights-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+
+/* Individual Cards */
+
+.ai-insight-card {
+    min-width: 0;
+    padding: 22px;
+    background: #fffafd;
+    border: 1px solid #f2e1ed;
+    border-radius: 18px;
+}
+
+
+/* Summary Card */
+
+.ai-summary-card {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #fffafd, #fcf7ff);
+    border-color: #eed9ed;
+}
+
+
+/* Card Headings */
+
+.ai-card-heading {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    margin-bottom: 17px;
+}
+
+.ai-card-icon {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: #f8eaf5;
+    font-size: 19px;
+}
+
+.ai-card-heading h4 {
+    color: #a64c85 !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+
+/* Summary Text */
+
+.ai-summary-text {
+    color: #71637a !important;
+    font-size: 14px !important;
+    line-height: 1.9 !important;
+    margin: 0 !important;
+}
+
+
+/* Average Scores */
+
+.ai-score-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.ai-score-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 13px;
+    background: #ffffff;
+    border: 1px solid #f1e3ef;
+    border-radius: 12px;
+}
+
+.ai-score-name {
+    color: #77677f;
+    font-size: 12px;
+    text-transform: capitalize;
+}
+
+.ai-score-item strong {
+    color: #bd5795 !important;
+    font-size: 18px;
+    white-space: nowrap;
+}
+
+.ai-score-item strong small {
+    color: #a895aa;
+    font-size: 11px;
+}
+
+
+/* Repeated Patterns */
+
+.ai-pattern-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ai-pattern-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px;
+    background: #ffffff;
+    border: 1px solid #f1e3ef;
+    border-radius: 12px;
+}
+
+.ai-pattern-dot {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: #f8eaf5;
+    color: #bd5795;
+    border-radius: 9px;
+}
+
+.ai-pattern-item strong {
+    color: #a64c85;
+    font-size: 13px;
+    text-transform: capitalize;
+}
+
+.ai-pattern-item p {
+    color: #796b81 !important;
+    font-size: 13px !important;
+    line-height: 1.7 !important;
+    margin: 5px 0 0 !important;
+}
+
+
+/* Symptom Alerts */
+
+.ai-alert-card {
+    grid-column: 1 / -1;
+    background: #fffdfd;
+    border-color: #f1dfe6;
+}
+
+.ai-alert-level {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 14px 16px;
+    margin-bottom: 15px;
+    background: #fff5f7;
+    border: 1px solid #f3e0e7;
+    border-radius: 12px;
+}
+
+.ai-alert-level span {
+    color: #806c7a;
+    font-size: 13px;
+}
+
+.ai-alert-level strong {
+    color: #b84f78;
+    font-size: 14px;
+    background: #fbe3eb;
+    padding: 6px 12px;
+    border-radius: 20px;
+}
+
+
+/* Individual Alert */
+
+.ai-alert-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.ai-alert-item {
+    padding: 15px;
+    background: #ffffff;
+    border: 1px solid #f0e4eb;
+    border-radius: 13px;
+}
+
+.ai-alert-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.ai-alert-top strong {
+    color: #6c5368;
+    font-size: 14px;
+    text-transform: capitalize;
+}
+
+.ai-severity-badge {
+    color: #a34d7d;
+    background: #fceaf3;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.ai-alert-item p {
+    color: #827486 !important;
+    font-size: 13px !important;
+    line-height: 1.8 !important;
+    margin: 0 !important;
+}
+
+
+/* Safety Information */
+
+.ai-safety-note {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 19px;
+    background: #fff9f1;
+    border: 1px solid #f2e5d1;
+    border-radius: 15px;
+}
+
+.ai-safety-icon {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: #fff0dc;
+    border-radius: 12px;
+    font-size: 19px;
+}
+
+.ai-safety-note h4 {
+    color: #99734b !important;
+    font-size: 15px !important;
+    margin: 0 0 7px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+}
+
+.ai-safety-note p {
+    color: #88765e !important;
+    font-size: 13px !important;
+    line-height: 1.8 !important;
+    margin: 0 !important;
+}
+
+
+/* Disclaimer */
+
+.ai-disclaimer {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid #f1e5ef;
+}
+
+.ai-disclaimer span {
+    color: #b69ab9;
+    font-size: 15px;
+}
+
+.ai-disclaimer small {
+    color: #95859a !important;
+    font-size: 12px !important;
+    line-height: 1.8 !important;
+}
+
+
+/* Empty Message */
+
+.ai-empty-message {
+    padding: 14px;
+    color: #8a7b90;
+    background: #ffffff;
+    border: 1px dashed #e8d7e8;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+
+/* Responsive */
+
+@media (max-width: 700px) {
+
+    .ai-analysis-panel {
+        padding: 22px !important;
+    }
+
+    .ai-insights-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ai-summary-card,
+    .ai-alert-card,
+    .ai-safety-note {
+        grid-column: auto;
+    }
+
+    .ai-header-badge {
+        display: none;
+    }
+
+    .ai-header-content h3 {
+        font-size: 21px !important;
+    }
+
+    .ai-score-grid {
+        grid-template-columns: 1fr;
+    }
+
+}
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="symptoms-brand">
+    <img
+        src="{{ url_for('static', filename='image/logo.png') }}"
+        alt="Lunavelle Logo"
+        class="symptoms-logo"
+    >
+    <div>
+        
+    </div>
+</div>
+    <nav>
+        <a href="{{ url_for('dashboard') }}">🏠 Dashboard</a>
+        <a href="{{ url_for('cycle.cycle_page') }}">🌷 Cycle Tracker</a>
+        <a href="{{ url_for('calendar') }}">🗓️ Calendar</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <h2>📝 Symptom Tracker</h2>
+
+        <p>
+            Record your menstrual symptoms, mood, energy level and personal
+            notes. Tracking your experiences over time may help you identify
+            patterns and discuss concerns with a healthcare professional.
+        </p>
+    </section>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="message
+                    {% if category == 'success' %}success
+                    {% elif category == 'error' %}error
+                    {% else %}info{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <section class="summary-grid">
+
+        <article class="summary-card">
+            <div class="icon">🌡️</div>
+            <h3>Physical Symptoms</h3>
+            <p>
+                Record cramps, headaches, bloating, fatigue or other
+                physical symptoms you experience.
+            </p>
+        </article>
+
+        <article class="summary-card">
+            <div class="icon">💗</div>
+            <h3>Mood Tracking</h3>
+            <p>
+                Record how you feel each day and note any changes
+                in your mood or emotions.
+            </p>
+        </article>
+
+        <article class="summary-card">
+            <div class="icon">⚡</div>
+            <h3>Energy Level</h3>
+            <p>
+                Track your daily energy level and record whether
+                you feel energetic, normal or tired.
+            </p>
+        </article>
+
+    </section>
+
+    <section class="content-grid">
+
+        <!-- Symptom Entry Form -->
+        <section class="panel">
+
+            <h3 class="log-symptoms-title">
+    <span class="log-title-icon">✦</span>
+    Log Your Symptoms
+</h3>
+
+            <p class="description log-symptoms-description">
+    Take a moment for yourself. Record your symptoms
+    and understand your wellbeing over time.
+</p>
+
+            <form action="{{ url_for('symptom.symptoms_page') }}"
+      method="POST">
+
+    <div class="form-group">
+        <label for="record_date">Date *</label>
+        <input
+            type="date"
+            id="record_date"
+            name="record_date"
+            required
+        >
+    </div>
+
+    <p><strong>Rate your symptoms (0–10)</strong></p>
+    <p>0 = No symptoms | 10 = Very severe</p>
+
+    <div class="form-group">
+        <label for="cramps">Menstrual Cramps</label>
+        <input type="number" id="cramps" name="cramps"
+               min="0" max="10" step="1" value="0">
+    </div>
+
+    <div class="form-group">
+        <label for="headache">Headache</label>
+        <input type="number" id="headache" name="headache"
+               min="0" max="10" step="1" value="0">
+    </div>
+
+    <div class="form-group">
+        <label for="fatigue">Fatigue</label>
+        <input type="number" id="fatigue" name="fatigue"
+               min="0" max="10" step="1" value="0">
+    </div>
+
+    <div class="form-group">
+        <label for="bloating">Bloating</label>
+        <input type="number" id="bloating" name="bloating"
+               min="0" max="10" step="1" value="0">
+    </div>
+
+    <div class="form-group">
+        <label for="back_pain">Back Pain</label>
+        <input type="number" id="back_pain" name="back_pain"
+               min="0" max="10" step="1" value="0">
+    </div>
+
+    <div class="form-group">
+        <label for="nausea">Nausea</label>
+        <input type="number" id="nausea" name="nausea"
+               min="0" max="10" step="1" value="0">
+    </div>
+
+    <button type="submit" class="btn">
+        💾 Save Symptom Record
+    </button>
+
+</form>
+
+        </section>
+
+        <!-- Symptom History -->
+        <section class="panel">
+
+            <h3>📋 Symptom History</h3>
+
+            <p class="description">
+                Review symptom records supplied by your application.
+            </p>
+
+           <!-- Symptom History -->
+<section class="panel">
+
+    <h3>📋 Symptom History</h3>
+
+    <p class="description">
+        Review your saved symptom records.
+    </p>
+
+    {% if records %}
+
+        {% for item in records %}
+
+            <article class="symptom-item">
+
+                <span class="badge">
+                    📅 {{ item.record_date }}
+                </span>
+
+                <h4>Symptom Record</h4>
+
+                {% for name, score in item.symptoms.items() %}
+
+                    <p>
+                        🌸 {{ name.replace('_', ' ')|title }}:
+                        {{ score }}/10
+                    </p>
+
+                {% endfor %}
+
+            </article>
+
+        {% endfor %}
+
+    {% else %}
+
+        <div class="empty-state">
+
+            <div class="icon">🌸</div>
+
+            <h4>No symptom records to display</h4>
+
+            <p>
+                Your saved records will appear here.
+            </p>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+        </section>
+
+    </section>
+
+    <!-- AI Symptom Analysis -->
+<!-- Lunavelle AI Symptom Insights -->
+
+<section class="panel ai-analysis-panel">
+
+    <!-- AI Header -->
+    <div class="ai-analysis-header">
+
+        <div class="ai-header-icon">
+            ✨
+        </div>
+
+        <div class="ai-header-content">
+            <h3>AI Symptom Insights</h3>
+
+            <p>
+                Understand your symptom patterns and wellbeing over time.
+            </p>
+        </div>
+
+        <span class="ai-header-badge">
+            AI Insights
+        </span>
+
+    </div>
+
+
+    <!-- AI Content Grid -->
+    <div class="ai-insights-grid">
+
+
+        <!-- Analysis Summary -->
+        <div class="ai-insight-card ai-summary-card">
+
+            <div class="ai-card-heading">
+                <span class="ai-card-icon">📋</span>
+                <h4>Analysis Summary</h4>
+            </div>
+
+            <p class="ai-summary-text">
+                {{ analysis.summary }}
+            </p>
+
+        </div>
+
+
+        <!-- Average Symptom Scores -->
+        <div class="ai-insight-card">
+
+            <div class="ai-card-heading">
+                <span class="ai-card-icon">📊</span>
+                <h4>Average Symptom Scores</h4>
+            </div>
+
+            {% if analysis.averages %}
+
+                <div class="ai-score-grid">
+
+                    {% for name, score in analysis.averages.items() %}
+
+                        <div class="ai-score-item">
+
+                            <span class="ai-score-name">
+                                {{ name.replace('_', ' ')|title }}
+                            </span>
+
+                            <strong>
+                                {{ score }}<small>/10</small>
+                            </strong>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <p class="ai-empty-message">
+                    No analysis data available yet.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Repeated Patterns -->
+        <div class="ai-insight-card">
+
+            <div class="ai-card-heading">
+                <span class="ai-card-icon">🔍</span>
+                <h4>Repeated Symptom Patterns</h4>
+            </div>
+
+            {% if analysis.patterns %}
+
+                <div class="ai-pattern-list">
+
+                    {% for pattern in analysis.patterns %}
+
+                        <div class="ai-pattern-item">
+
+                            <span class="ai-pattern-dot">✦</span>
+
+                            <div>
+                                <strong>
+                                    {{ pattern.symptom }}
+                                </strong>
+
+                                <p>
+                                    {{ pattern.observation }}
+                                </p>
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="ai-empty-message">
+                    No repeated high-score patterns detected yet.
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Symptom Alerts -->
+        <div class="ai-insight-card ai-alert-card">
+
+            <div class="ai-card-heading">
+                <span class="ai-card-icon">⚠️</span>
+                <h4>Symptom Alerts</h4>
+            </div>
+
+            <div class="ai-alert-level">
+
+                <span>Overall Alert Level</span>
+
+                <strong>
+                    {{ alerts.alert_level }}
+                </strong>
+
+            </div>
+
+            <div class="ai-alert-list">
+
+                {% for alert in alerts.alerts %}
+
+                    <div class="ai-alert-item">
+
+                        <div class="ai-alert-top">
+
+                            <strong>
+                                {{ alert.symptom }}
+                            </strong>
+
+                            <span class="ai-severity-badge">
+                                {{ alert.severity }}/10
+                                · {{ alert.level }}
+                            </span>
+
+                        </div>
+
+                        <p>
+                            {{ alert.message }}
+                        </p>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <!-- Safety Information -->
+        <div class="ai-safety-note">
+
+            <div class="ai-safety-icon">
+                💗
+            </div>
+
+            <div>
+                <h4>When to Seek Medical Care</h4>
+
+                <p>
+                    {{ alerts.safety_message }}
+                </p>
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- Disclaimer -->
+    <div class="ai-disclaimer">
+
+        <span>ⓘ</span>
+
+        <small>
+            {{ analysis.disclaimer }}
+        </small>
+
+    </div>
+
+</section>
+
+    <section class="quick-links">
+
+        <a href="{{ url_for('dashboard') }}">🏠 Dashboard</a>
+
+        <a href="{{ url_for('cycle.cycle_page') }}">🌷 Cycle Tracker</a>
+
+        <a href="{{ url_for('calendar') }}">🗓️ Period Calendar</a>
+
+        <a href="{{ url_for('analytics.analytics_page') }}">📊 Analytics</a>
+
+        <a href="{{ url_for('insights') }}">✨ Health Insights</a>
+
+        <a href="{{ url_for('privacy') }}">🔒 Privacy Policy</a>
+
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 Lunavelle | Take care of yourself 💗</p>
+
+    <p style="margin-top: 9px;">
+        <a href="{{ url_for('about') }}">About Us</a>
+        <a href="{{ url_for('privacy') }}">Privacy Policy</a>
+    </p>
+</footer>
+
+<script>
+    const symptomDate = document.getElementById("record_date");
+    if (symptomDate) {
+        const today = new Date();
+
+        const localDate = new Date(
+            today.getTime() - today.getTimezoneOffset() * 60000
+        ).toISOString().split("T")[0];
+
+        symptomDate.max = localDate;
+        symptomDate.value = localDate;
+    }
+
+    const painLevel = document.getElementById("pain_level");
+
+    if (painLevel) {
+        painLevel.addEventListener("input", function () {
+            const value = Number(this.value);
+
+            if (this.value !== "" && (value < 0 || value > 10)) {
+                this.setCustomValidity("Enter a pain level between 0 and 10.");
+            } else {
+                this.setCustomValidity("");
+            }
+        });
+    }
+</script>
+
+</body>
+</html>
+

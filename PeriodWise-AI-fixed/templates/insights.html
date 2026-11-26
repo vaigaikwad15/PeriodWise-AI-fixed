@@ -1,0 +1,482 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Lunavelle | Health Insights</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #fff0f6, #f3e8ff);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        header {
+            background: linear-gradient(135deg, #e75480, #9370db);
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 27px;
+        }
+
+        .brand {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.insights-logo {
+    width: 150px;
+    height: 60px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+}
+
+        header p {
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        nav {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 14px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.18);
+            font-size: 14px;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.32);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 35px auto;
+        }
+
+        .hero {
+            background: white;
+            padding: 32px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 20px rgba(100, 50, 100, 0.08);
+        }
+
+        .hero h2 {
+            color: #c43d7a;
+            font-size: 29px;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .section-title {
+            color: #8a3e75;
+            margin: 30px 0 18px;
+            font-size: 23px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(100, 50, 100, 0.07);
+            border: 1px solid #f7d8e7;
+            transition: transform 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+        }
+
+        .icon {
+            font-size: 36px;
+            margin-bottom: 14px;
+        }
+
+        .card h3 {
+            color: #c43d7a;
+            margin-bottom: 12px;
+            font-size: 19px;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        .highlight {
+            background: linear-gradient(135deg, #e75480, #9370db);
+            color: white;
+            padding: 28px;
+            border-radius: 18px;
+            margin-top: 25px;
+            box-shadow: 0 5px 20px rgba(150, 70, 140, 0.15);
+        }
+
+        .highlight h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .highlight p {
+            line-height: 1.8;
+        }
+
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .tip {
+            background: white;
+            padding: 22px;
+            border-radius: 15px;
+            display: flex;
+            gap: 15px;
+            box-shadow: 0 4px 15px rgba(100, 50, 100, 0.06);
+        }
+
+        .tip-icon {
+            font-size: 28px;
+        }
+
+        .tip h3 {
+            color: #c43d7a;
+            margin-bottom: 8px;
+            font-size: 17px;
+        }
+
+        .tip p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .disclaimer {
+            margin-top: 28px;
+            background: #fff8fc;
+            border-left: 5px solid #e75480;
+            padding: 20px;
+            border-radius: 10px;
+            color: #666;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        .button {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 20px;
+            border-radius: 9px;
+            background: white;
+            color: #c43d7a;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background: #fff0f6;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px 15px;
+            margin-top: 40px;
+            color: #777;
+            font-size: 13px;
+        }
+
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 20px;
+            }
+
+            header h1 {
+                font-size: 23px;
+            }
+            .insights-logo {
+    width: 115px;
+    height: 48px;
+}
+
+.brand {
+    gap: 10px;
+}
+
+            .container {
+                width: 92%;
+                margin-top: 22px;
+            }
+
+            .grid,
+            .tips-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero {
+                padding: 23px;
+            }
+
+            .hero h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div>
+        <div class="brand">
+    <img
+        src="{{ url_for('static', filename='image/logo.png') }}"
+        alt="Lunavelle Logo"
+        class="insights-logo"
+    >
+    <h1>Lunavelle</h1>
+</div>
+        
+    </div>
+
+    <nav>
+        <a href="{{ url_for('dashboard') }}">🏠 Dashboard</a>
+        <a href="{{ url_for('cycle.cycle_page') }}">🌷 Cycle Tracker</a>
+        <a href="{{ url_for('calendar') }}">🗓️ Calendar</a>
+        <a href="{{ url_for('analytics.analytics_page') }}">📊 Analytics</a>
+    </nav>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <h2>✨ Your Health Insights</h2>
+
+        <p>
+            Welcome to your Lunavelle insights page.
+            Learn about menstrual cycle patterns, symptom tracking,
+            self-care and healthy habits. Your personal insights depend
+            on the information recorded in your tracker.
+        </p>
+    </section>
+
+    <h2 class="section-title">🌷 Understand Your Cycle</h2>
+
+    <section class="grid">
+
+        <article class="card">
+            <div class="icon">🩸</div>
+            <h3>Menstrual Phase</h3>
+            <p>
+                This phase begins on the first day of your period.
+                You may experience bleeding, cramps, tiredness or changes
+                in mood. Experiences vary from person to person.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="icon">🌱</div>
+            <h3>Follicular Phase</h3>
+            <p>
+                This phase starts on the first day of menstruation and
+                continues until ovulation. Hormonal changes support the
+                development of a follicle in the ovary.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="icon">🥚</div>
+            <h3>Ovulation</h3>
+            <p>
+                Ovulation is when an ovary releases an egg.
+                Its timing varies, so a calendar estimate cannot
+                confirm the exact ovulation date.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="icon">🌙</div>
+            <h3>Luteal Phase</h3>
+            <p>
+                After ovulation, hormone levels change as the body
+                prepares for a possible pregnancy. Some people notice
+                premenstrual symptoms during this phase.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="icon">📝</div>
+            <h3>Track Your Symptoms</h3>
+            <p>
+                Record cramps, headaches, mood changes, energy levels
+                and other symptoms. Keeping a record may help you
+                recognise patterns over time.
+            </p>
+        </article>
+
+        <article class="card">
+            <div class="icon">📅</div>
+            <h3>Cycle Regularity</h3>
+            <p>
+                Compare the start dates of your periods over several
+                cycles. Cycle length can vary, and one unusual cycle
+                does not automatically mean there is a problem.
+            </p>
+        </article>
+
+    </section>
+
+    <section class="highlight">
+        <h3>💗 Your Wellness Journey</h3>
+
+        <p>
+            Small, consistent habits can help you care for yourself.
+            Keep a record of your period dates, notice how you feel,
+            rest when needed and seek medical advice if you have
+            symptoms that concern you.
+        </p>
+
+        <a href="{{ url_for('cycle.cycle_page') }}" class="button">
+            Record Your Period →
+        </a>
+    </section>
+
+    <h2 class="section-title">🌼 Everyday Self-Care Tips</h2>
+
+    <section class="tips-grid">
+
+        <article class="tip">
+            <div class="tip-icon">💧</div>
+            <div>
+                <h3>Stay Hydrated</h3>
+                <p>
+                    Drink water regularly throughout the day.
+                    Adjust your fluid intake to your activity and needs.
+                </p>
+            </div>
+        </article>
+
+        <article class="tip">
+            <div class="tip-icon">🥗</div>
+            <div>
+                <h3>Eat Balanced Meals</h3>
+                <p>
+                    Include a variety of vegetables, fruits, whole grains
+                    and protein-rich foods in your meals.
+                </p>
+            </div>
+        </article>
+
+        <article class="tip">
+            <div class="tip-icon">😴</div>
+            <div>
+                <h3>Get Enough Rest</h3>
+                <p>
+                    Maintain a regular sleep routine and give yourself
+                    time to rest when you feel tired.
+                </p>
+            </div>
+        </article>
+
+        <article class="tip">
+            <div class="tip-icon">🚶‍♀️</div>
+            <div>
+                <h3>Stay Active</h3>
+                <p>
+                    Gentle walking, stretching or other comfortable
+                    physical activity may help support well-being.
+                </p>
+            </div>
+        </article>
+
+        <article class="tip">
+            <div class="tip-icon">🧘‍♀️</div>
+            <div>
+                <h3>Manage Stress</h3>
+                <p>
+                    Try relaxing activities such as deep breathing,
+                    meditation, journaling or listening to music.
+                </p>
+            </div>
+        </article>
+
+        <article class="tip">
+            <div class="tip-icon">📔</div>
+            <div>
+                <h3>Keep a Cycle Journal</h3>
+                <p>
+                    Record period dates, symptoms and changes in your
+                    daily routine to discuss with a healthcare provider
+                    when necessary.
+                </p>
+            </div>
+        </article>
+
+    </section>
+
+    <section class="disclaimer">
+        <strong>⚕️ Important health information</strong>
+        <p style="margin-top: 8px;">
+            This page provides general educational information and does
+            not diagnose medical conditions. The content is not generated
+            from your personal records unless your backend explicitly
+            supplies and processes that data. Seek medical advice for
+            severe pain, unusually heavy bleeding, persistent irregularity
+            or other concerning symptoms.
+        </p>
+    </section>
+
+</main>
+
+<footer>
+    <p>© 2026 Lunavelle | Understand your cycle, care for yourself 💗</p>
+</footer>
+
+</body>
+</html>
+

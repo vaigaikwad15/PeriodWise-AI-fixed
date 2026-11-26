@@ -1,0 +1,1453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Lunavelle AI  | Your Cycle, Your Wellness</title>
+<link rel="manifest" href="{{ url_for('static', filename='manifest.json') }}">
+
+<meta name="theme-color" content="#E8A1B0">
+
+<link rel="apple-touch-icon" href="{{ url_for('static', filename='icons/lunavelle-icon-192.png') }}">
+
+    <style>
+
+        /* =====================================================
+           RESET
+        ===================================================== */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        body {
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            min-height: 100vh;
+
+            color: #4b2948;
+
+            background: #fdecef;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =====================================================
+           MAIN HERO / BACKGROUND
+        ===================================================== */
+
+        .hero {
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            rgba(255, 239, 244, 0.15),
+            rgba(255, 239, 244, 0.15)
+        ),
+        url("{{ url_for('static', filename='image/background.png') }}");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+        /* =====================================================
+           SOFT OVERLAY
+        ===================================================== */
+
+        .hero::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+
+                radial-gradient(
+                    circle at 15% 80%,
+                    rgba(255, 173, 199, 0.28),
+                    transparent 28%
+                ),
+
+                radial-gradient(
+                    circle at 85% 20%,
+                    rgba(188, 132, 220, 0.20),
+                    transparent 30%
+                );
+
+            pointer-events: none;
+        }
+
+
+        /* =====================================================
+           NAVBAR
+        ===================================================== */
+
+        .navbar {
+
+            width: 92%;
+
+            max-width: 1400px;
+
+            margin: 18px auto 0;
+
+            padding: 14px 24px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            gap: 20px;
+
+            background:
+                rgba(255, 255, 255, 0.88);
+
+            backdrop-filter: blur(18px);
+
+            -webkit-backdrop-filter: blur(18px);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.8);
+
+            border-radius: 60px;
+
+            box-shadow:
+                0 12px 35px
+                rgba(117, 65, 110, 0.12);
+
+            position: relative;
+
+            z-index: 20;
+        }
+
+
+        /* =====================================================
+           LOGO
+        ===================================================== */
+
+        .logo {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            text-decoration: none;
+
+            color: #703b72;
+
+            font-size: 27px;
+
+            font-weight: 800;
+
+            white-space: nowrap;
+        }
+
+
+        .logo-icon {
+    width: 45px;
+    height: 45px;
+    min-width: 45px;
+    flex: 0 0 45px;
+
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: hidden;
+
+    background: linear-gradient(135deg, #ff91a8, #b96ac7);
+
+    box-shadow: 0 8px 20px rgba(180, 87, 150, 0.25);
+}
+
+.logo-icon img {
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+
+    display: block;
+    object-fit: contain;
+}
+        /* =====================================================
+           NAVIGATION LINKS
+        ===================================================== */
+
+        .nav-links {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 34px;
+        }
+
+
+        .nav-links a {
+
+            position: relative;
+
+            text-decoration: none;
+
+            color: #654a64;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            transition: 0.3s ease;
+        }
+
+
+        .nav-links a::after {
+
+            content: "";
+
+            position: absolute;
+
+            left: 0;
+
+            bottom: -8px;
+
+            width: 0;
+
+            height: 2px;
+
+            border-radius: 5px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #d95386,
+                    #a55cc2
+                );
+
+            transition: 0.3s ease;
+        }
+
+
+        .nav-links a:hover {
+
+            color: #c94f82;
+        }
+
+
+        .nav-links a:hover::after {
+
+            width: 100%;
+        }
+
+
+        /* =====================================================
+           NAV BUTTONS
+        ===================================================== */
+
+        .nav-buttons {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+
+        .btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                13px 24px;
+
+            border-radius: 30px;
+
+            text-decoration: none;
+
+            font-weight: 700;
+
+            transition: 0.3s ease;
+        }
+
+
+        .login-btn {
+
+            color: #c54c83;
+
+            border:
+                1px solid
+                #e7a0bb;
+
+            background:
+                rgba(255, 255, 255, 0.65);
+        }
+
+
+        .login-btn:hover {
+
+            background: white;
+
+            transform:
+                translateY(-2px);
+        }
+
+
+        .start-btn {
+
+            color: white;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #d95286,
+                    #a65bc1
+                );
+
+            box-shadow:
+                0 10px 24px
+                rgba(180, 70, 130, 0.25);
+        }
+
+
+        .start-btn:hover {
+
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                0 15px 30px
+                rgba(180, 70, 130, 0.32);
+        }
+
+
+        /* =====================================================
+           HERO CONTENT
+        ===================================================== */
+
+        .hero-content {
+
+            width: 92%;
+
+            max-width: 1400px;
+
+            min-height:
+                calc(100vh - 90px);
+
+            margin: 0 auto;
+
+            display: flex;
+
+            align-items: center;
+
+            position: relative;
+
+            z-index: 5;
+        }
+
+
+        .hero-text {
+
+            width: 58%;
+
+            padding:
+                55px 0 70px;
+        }
+
+
+        /* =====================================================
+           BADGE
+        ===================================================== */
+
+        .badge {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            padding:
+                11px 19px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(255, 255, 255, 0.84);
+
+            border:
+                1px solid
+                rgba(205, 120, 160, 0.18);
+
+            color: #c24d81;
+
+            font-size: 15px;
+
+            font-weight: 700;
+
+            box-shadow:
+                0 8px 22px
+                rgba(130, 70, 110, 0.08);
+
+            backdrop-filter: blur(10px);
+        }
+
+
+        /* =====================================================
+           MAIN HEADING
+        ===================================================== */
+
+        .hero-title {
+
+            margin-top: 25px;
+
+            font-size:
+                clamp(
+                    50px,
+                    6vw,
+                    82px
+                );
+
+            line-height: 0.98;
+
+            font-weight: 900;
+
+            letter-spacing: -3px;
+
+            color: #3e293e;
+        }
+
+
+        .hero-title span {
+
+            display: block;
+
+            margin-top: 8px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #db4f83,
+                    #9b58c4
+                );
+
+            -webkit-background-clip: text;
+
+            background-clip: text;
+
+            color: transparent;
+        }
+
+
+        /* =====================================================
+           DESCRIPTION
+        ===================================================== */
+
+        .hero-description {
+
+            max-width: 670px;
+
+            margin-top: 28px;
+
+            font-size: 19px;
+
+            line-height: 1.75;
+
+            color: #70586e;
+
+            font-weight: 500;
+        }
+
+
+        /* =====================================================
+           HERO BUTTONS
+        ===================================================== */
+
+        .hero-buttons {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 17px;
+
+            margin-top: 32px;
+        }
+
+
+        .primary-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                16px 30px;
+
+            border-radius: 35px;
+
+            text-decoration: none;
+
+            color: white;
+
+            font-weight: 800;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #d64e84,
+                    #a35bc0
+                );
+
+            box-shadow:
+                0 12px 28px
+                rgba(179, 70, 130, 0.25);
+
+            transition: 0.3s ease;
+        }
+
+
+        .primary-btn:hover {
+
+            transform:
+                translateY(-4px);
+
+            box-shadow:
+                0 17px 32px
+                rgba(179, 70, 130, 0.32);
+        }
+
+
+        .secondary-btn {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                16px 30px;
+
+            border-radius: 35px;
+
+            text-decoration: none;
+
+            color: #9b4c91;
+
+            font-weight: 800;
+
+            background:
+                rgba(255, 255, 255, 0.78);
+
+            border:
+                1px solid
+                rgba(175, 100, 160, 0.20);
+
+            transition: 0.3s ease;
+        }
+
+
+        .secondary-btn:hover {
+
+            background: white;
+
+            transform:
+                translateY(-4px);
+        }
+
+
+        /* =====================================================
+           FEATURE CARDS
+        ===================================================== */
+
+        .features {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 14px;
+
+            margin-top: 45px;
+
+            max-width: 820px;
+        }
+
+
+        .feature-card {
+
+            padding:
+                19px 13px;
+
+            min-height: 145px;
+
+            display: flex;
+
+            flex-direction: column;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            background:
+                rgba(255, 255, 255, 0.78);
+
+            backdrop-filter: blur(12px);
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.80);
+
+            border-radius: 21px;
+
+            box-shadow:
+                0 9px 27px
+                rgba(130, 70, 110, 0.09);
+
+            transition: 0.3s ease;
+        }
+
+
+        .feature-card:hover {
+
+            transform:
+                translateY(-7px);
+
+            background:
+                rgba(255, 255, 255, 0.94);
+
+            box-shadow:
+                0 15px 35px
+                rgba(130, 70, 110, 0.14);
+        }
+
+
+        .feature-icon {
+
+            width: 48px;
+
+            height: 48px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            margin-bottom: 9px;
+
+            border-radius: 15px;
+
+            background:
+                rgba(255, 213, 226, 0.65);
+
+            font-size: 25px;
+        }
+
+
+        .feature-card h3 {
+
+            font-size: 15px;
+
+            color: #5b3657;
+
+            margin-bottom: 7px;
+        }
+
+
+        .feature-card p {
+
+            font-size: 12px;
+
+            line-height: 1.45;
+
+            color: #826d7e;
+        }
+
+
+        /* =====================================================
+           FLOATING HEARTS
+        ===================================================== */
+
+        .floating-heart {
+
+            position: absolute;
+
+            z-index: 3;
+
+            font-size: 38px;
+
+            color: #ee8ba6;
+
+            opacity: 0.65;
+
+            animation:
+                floatHeart
+                4s
+                ease-in-out
+                infinite;
+        }
+
+
+        .heart-one {
+
+            right: 44%;
+
+            top: 23%;
+        }
+
+
+        .heart-two {
+
+            right: 7%;
+
+            top: 38%;
+
+            animation-delay: 1s;
+        }
+
+
+        .heart-three {
+
+            left: 48%;
+
+            bottom: 9%;
+
+            animation-delay: 2s;
+        }
+
+
+        @keyframes floatHeart {
+
+            0%,
+            100% {
+
+                transform:
+                    translateY(0);
+            }
+
+            50% {
+
+                transform:
+                    translateY(-15px);
+            }
+        }
+
+
+        /* =====================================================
+           EXTRA DECORATIVE CIRCLE
+        ===================================================== */
+
+        .soft-circle {
+
+            position: absolute;
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            z-index: 1;
+        }
+
+
+        .circle-one {
+
+            width: 280px;
+
+            height: 280px;
+
+            left: -130px;
+
+            bottom: -100px;
+
+            background:
+                rgba(255, 176, 201, 0.25);
+        }
+
+
+        .circle-two {
+
+            width: 320px;
+
+            height: 320px;
+
+            right: -150px;
+
+            top: 100px;
+
+            background:
+                rgba(190, 145, 225, 0.18);
+        }
+
+
+        /* =====================================================
+           RESPONSIVE - TABLET
+        ===================================================== */
+
+        @media (max-width: 1100px) {
+
+            .nav-links {
+
+                gap: 20px;
+            }
+
+
+            .hero-text {
+
+                width: 65%;
+            }
+
+
+            .hero-title {
+
+                font-size: 58px;
+            }
+
+
+            .features {
+
+                max-width: 700px;
+            }
+        }
+
+
+        /* =====================================================
+           RESPONSIVE - MOBILE
+        ===================================================== */
+
+        @media (max-width: 850px) {
+
+            .navbar {
+
+                width: 94%;
+
+                padding:
+                    12px 17px;
+            }
+
+
+            .nav-links {
+
+                display: none;
+            }
+
+
+            .hero-content {
+
+                width: 88%;
+
+                min-height: auto;
+
+                padding:
+                    70px 0;
+            }
+
+
+            .hero-text {
+
+                width: 100%;
+
+                text-align: center;
+            }
+
+
+            .hero-description {
+
+                margin-left: auto;
+
+                margin-right: auto;
+            }
+
+
+            .hero-buttons {
+
+                justify-content: center;
+            }
+
+
+            .features {
+
+                max-width: 100%;
+            }
+        }
+
+
+        /* =====================================================
+           SMALL MOBILE
+        ===================================================== */
+
+        @media (max-width: 600px) {
+
+            .logo {
+
+                font-size: 20px;
+            }
+
+
+            .logo-icon {
+
+                width: 45px;
+
+                height: 45px;
+
+                font-size: 10px;
+            }
+
+
+            .login-btn {
+
+                display: none;
+            }
+
+
+            .start-btn {
+
+                padding:
+                    11px 16px;
+
+                font-size: 13px;
+            }
+
+
+            .hero-title {
+
+                font-size: 45px;
+
+                letter-spacing: -2px;
+            }
+
+
+            .hero-description {
+
+                font-size: 16px;
+
+                line-height: 1.65;
+            }
+
+
+            .hero-buttons {
+
+                flex-direction: column;
+
+                width: 100%;
+            }
+
+
+            .primary-btn,
+            .secondary-btn {
+
+                width: 100%;
+            }
+
+
+            .features {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap: 10px;
+            }
+
+
+            .feature-card {
+
+                min-height: 135px;
+            }
+
+
+            .feature-card h3 {
+
+                font-size: 13px;
+            }
+
+
+            .feature-card p {
+
+                font-size: 11px;
+            }
+        }
+
+
+        /* =====================================================
+           VERY SMALL SCREEN
+        ===================================================== */
+
+        @media (max-width: 400px) {
+
+            .logo {
+
+                font-size: 18px;
+            }
+
+
+            .hero-title {
+
+                font-size: 39px;
+            }
+
+
+            .features {
+
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         MAIN HERO
+    ===================================================== -->
+
+    <section
+        class="hero"
+        id="home"
+    >
+
+
+        <!-- DECORATIVE CIRCLES -->
+
+        <div
+            class="soft-circle circle-one"
+        ></div>
+
+        <div
+            class="soft-circle circle-two"
+        ></div>
+
+
+        <!-- =================================================
+             NAVBAR
+        ================================================= -->
+
+        <nav class="navbar">
+
+
+            <!-- LOGO -->
+
+            <a href="/" class="logo">
+
+    <span class="logo-icon">
+        <img src="{{ url_for('static', filename='image/logo.png') }}" alt="Logo">
+    </span>
+
+    <span>
+       Lunavelle
+    </span>
+
+</a>
+
+
+
+            <!-- NAVIGATION -->
+
+            <div class="nav-links">
+
+                <a href="#home">
+                    Home
+                </a>
+
+                <a href="#features">
+                    Features
+                </a>
+
+                <a href="/wellness">
+                    Wellness
+                </a>
+
+                <a href="/about">
+                    About
+                </a>
+
+            </div>
+
+
+            <!-- NAV BUTTONS -->
+
+            <div class="nav-buttons">
+
+                <a
+                    href="/login"
+                    class="btn login-btn"
+                >
+                    Login
+                </a>
+
+
+                <a
+                    href="/register"
+                    class="btn start-btn"
+                >
+                    Get Started
+                </a>
+
+            </div>
+
+
+        </nav>
+
+
+        <!-- =================================================
+             FLOATING HEARTS
+        ================================================= -->
+
+        <div
+            class="floating-heart heart-one"
+        >
+            ♡
+        </div>
+
+
+        <div
+            class="floating-heart heart-two"
+        >
+            ♡
+        </div>
+
+
+        <div
+            class="floating-heart heart-three"
+        >
+            ♡
+        </div>
+
+
+        <!-- =================================================
+             HERO CONTENT
+        ================================================= -->
+
+        <div class="hero-content">
+
+
+            <div class="hero-text">
+
+
+                <!-- BADGE -->
+
+                <div class="badge">
+
+                    <span>
+                        🌷
+                    </span>
+
+                    <span>
+                        AI-Powered Cycle & Wellness
+                    </span>
+
+                </div>
+
+
+                <!-- HEADING -->
+
+                <h1 class="hero-title">
+
+                    A Healthier,
+
+                    <span>
+                        Happier You.
+                    </span>
+
+                </h1>
+
+
+                <!-- DESCRIPTION -->
+
+                <p class="hero-description">
+
+                    Understand your menstrual cycle,
+                    track symptoms, discover personal
+                    patterns and receive thoughtful
+                    wellness guidance — all in one
+                    beautiful place.
+
+                </p>
+
+
+                <!-- BUTTONS -->
+
+                <div class="hero-buttons">
+
+
+                    <a
+                        href="/register"
+                        class="primary-btn"
+                    >
+
+                        Start Tracking
+
+                        <span
+                            style="margin-left: 8px;"
+                        >
+                            →
+                        </span>
+
+                    </a>
+
+
+                    <a
+                        href="#features"
+                        class="secondary-btn"
+                    >
+
+                        Explore Features
+
+                    </a>
+
+
+                </div>
+
+
+                <!-- =================================================
+                     FEATURE CARDS
+                ================================================= -->
+
+                <div
+                    class="features"
+                    id="features"
+                >
+
+
+                    <!-- CARD 1 -->
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">
+                            🗓️
+                        </div>
+
+                        <h3>
+                            Cycle Tracking
+                        </h3>
+
+                        <p>
+                            Track your periods
+                            and cycle patterns.
+                        </p>
+
+                    </div>
+
+
+                    <!-- CARD 2 -->
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">
+                            🧠
+                        </div>
+
+                        <h3>
+                            AI Insights
+                        </h3>
+
+                        <p>
+                            Discover personal
+                            patterns with AI.
+                        </p>
+
+                    </div>
+
+
+                    <!-- CARD 3 -->
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">
+                            🌿
+                        </div>
+
+                        <h3>
+                            Wellness Guidance
+                        </h3>
+
+                        <p>
+                            Food, exercise and
+                            self-care tips.
+                        </p>
+
+                    </div>
+
+
+                    <!-- CARD 4 -->
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">
+                            💗
+                        </div>
+
+                        <h3>
+                            Symptom Tracking
+                        </h3>
+
+                        <p>
+                            Track how you feel
+                            each day.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+        
+
+    </section>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ===================================================== -->
+
+    <script>
+
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            function () {
+
+
+                console.log(
+                    "PeriodWise AI homepage loaded successfully."
+                );
+
+
+                /* =========================================
+                   SMOOTH SCROLL
+                ========================================= */
+
+                const featureLinks =
+                    document.querySelectorAll(
+                        'a[href="#features"]'
+                    );
+
+
+                featureLinks.forEach(
+                    function (link) {
+
+                        link.addEventListener(
+                            "click",
+                            function (event) {
+
+                                event.preventDefault();
+
+                                const features =
+                                    document.getElementById(
+                                        "features"
+                                    );
+
+                                if (features) {
+
+                                    features.scrollIntoView({
+                                        behavior: "smooth"
+                                    });
+
+                                }
+
+                            }
+                        );
+
+                    }
+                );
+
+
+                /* =========================================
+                   BUTTON CLICK MESSAGE
+                ========================================= */
+
+                const startButtons =
+                    document.querySelectorAll(
+                        ".primary-btn"
+                    );
+
+
+                startButtons.forEach(
+                    function (button) {
+
+                        button.addEventListener(
+                            "mouseenter",
+                            function () {
+
+                                button.style.cursor =
+                                    "pointer";
+
+                            }
+                        );
+
+                    }
+                );
+
+
+            }
+        );
+
+        
+
+    </script>
+
+<script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function() {
+        navigator.serviceWorker.register("/service-worker.js")
+            .then(function(registration) {
+                console.log("Lunavelle Service Worker Registered");
+            })
+            .catch(function(error) {
+                console.log("Service Worker registration failed:", error);
+            });
+    });
+}
+</script>
+</body>
+
+</html>
